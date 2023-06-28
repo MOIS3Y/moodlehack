@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "moodlehack"
+version = "0.1.0"
+description = "App for hacking moodle tests"
+authors = ["MOIS3Y <stepan@zhukovsky.me>"]
+license = "GPLv3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.2.2"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
