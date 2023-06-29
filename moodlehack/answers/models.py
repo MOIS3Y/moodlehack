@@ -1,4 +1,5 @@
 from django.db import models
+from month.models import MonthField
 
 
 class Answer(models.Model):
@@ -7,7 +8,7 @@ class Answer(models.Model):
     url = models.URLField()
     tag = models.CharField(max_length=50)
     actual = models.BooleanField(default=True)
-    period = models.DateField(auto_now_add=True)
+    period = MonthField("Period", help_text="month of testing")
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 

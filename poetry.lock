@@ -40,6 +40,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-monthfield"
+version = "0.1.4"
+description = "Provides a field for storing months (YYYY-MM) on django models."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-monthfield-0.1.4.tar.gz", hash = "sha256:fb7a40c19e10d20bc752d93f5a09b72f15ccaebd85fbb9f3f9b6d20052b5e9c9"},
+]
+
+[[package]]
 name = "flake8"
 version = "6.0.0"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -148,4 +159,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "312047e87132f5a13d0ae99213287d5338652ae48bbfb889f6d6e49fe9ae70b0"
+content-hash = "ecb160db31f5672875bfa3fe94f72d7da7ebf3a7407a3280b1502182808249c0"
