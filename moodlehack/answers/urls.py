@@ -1,7 +1,20 @@
-from django.urls import path
+from django.urls import include, path
+
+from rest_framework import routers
+
 from . import views
 
 
+app_name = 'answers'
+
+
+router = routers.DefaultRouter()
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'periods', views.PeriodViewSet)
+router.register(r'answers', views.AnswerViewSet)
+
+
 urlpatterns = [
-    path('', views.index, name='index')
+    path('', views.IndexTemplateView.as_view()),
+    path('api/v1/', include(router.urls))
 ]
