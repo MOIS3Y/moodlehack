@@ -15,6 +15,6 @@ router.register(r'answers', views.AnswerViewSet)
 
 
 urlpatterns = [
-    path('', views.IndexTemplateView.as_view()),
+    path('', views.AnswersListView.as_view(), name='index'),
     path('api/v1/', include(router.urls))
 ]

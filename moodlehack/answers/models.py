@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -48,6 +49,12 @@ class Answer(models.Model):
         verbose_name = 'Ответы'
         verbose_name_plural = 'Ответы'
         ordering = ['update', 'period']
+
+    def get_absolute_url(self):
+        return reverse(
+            'answers:answer',
+            kwargs={"pk": self.pk}
+        )
 
     def __str__(self):
         return self.question

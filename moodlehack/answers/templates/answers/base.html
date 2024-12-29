@@ -1,13 +1,17 @@
+{% extends 'base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'answers/css/styles.css' %}" rel="stylesheet">
-    <title>{% block title %}{% endblock title %}</title>
-  </head>
-  <body>
-    {% block content %}{% endblock content %}
-  </body>
-</html>
+
+{% block htmx %}
+  <!-- HTMX 2.0.4 -->
+  <script
+    src="https://unpkg.com/htmx.org@2.0.4"
+    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+    crossorigin="anonymous">
+  </script>
+{% endblock htmx %}
+
+{% block navigation %}
+  {% include "answers/includes/_navigation.html" %}
+{% endblock navigation %}
+
+  {% block content %}{% endblock content %}

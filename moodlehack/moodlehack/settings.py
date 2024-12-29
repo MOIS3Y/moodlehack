@@ -54,10 +54,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'answers.apps.AnswersConfig',
+    'accounts.apps.AccountsConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
-    'django_filters'
+    'django_filters',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +78,7 @@ ROOT_URLCONF = 'moodlehack.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,6 +134,7 @@ LANGUAGE_CODE = 'ru'  # 'en-us'
 TIME_ZONE = env('TZ')
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -144,6 +148,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'answers' / 'static',
+]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -153,6 +162,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # █▀▀ ▀▄▀ ▀█▀ █▀▀ █▄░█ ▀█▀ █ █▀█ █▄░█ █▀ ▀
 # ██▄ █░█ ░█░ ██▄ █░▀█ ░█░ █ █▄█ █░▀█ ▄█ ▄
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -
+
+# django-crispy-forms and crispy-bootstrap5
+# https://django-crispy-forms.readthedocs.io/en/latest/
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 # Django rest framework:
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [

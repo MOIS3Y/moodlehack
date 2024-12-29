@@ -1,0 +1,10 @@
+<div class="container">
+    <input 
+      name="q"
+      class="form-control"
+      placeholder="Найти ответы ..."
+      hx-get="{% url "answers:index" %}"
+      hx-target="#answers"
+      hx-trigger="input delay:0.2s"
+    >
+</div>

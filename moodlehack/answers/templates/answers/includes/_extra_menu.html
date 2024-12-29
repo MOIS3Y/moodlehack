@@ -1,0 +1,62 @@
+{% load admin_urls %}
+
+{% if request.user.is_authenticated %}
+  <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+    <div class="btn-group">
+        <a  type="button" class="btn btn-outline-secondary" href="{% url 'admin:index' %}">
+        <i class="bi bi-shield-shaded"></i>
+        Админка
+      </a>
+      <button 
+        type="button"
+        class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li class="nav-item">
+          <a
+            class="dropdown-item"
+            type="button"
+            href="{% url 'swagger-ui' %}"
+            target="_blank"
+          >
+            <i class="bi bi-braces-asterisk"></i> API
+          </a>
+        </li>
+        <li>
+          <a
+          type="button"
+          class="dropdown-item"
+          href="{% url "admin:login" %}"
+          >
+            <i class="bi bi-person-circle"></i>
+            {{ request.user }}
+          </a>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a
+            href="{% url "accounts:logout" %}"
+            class="dropdown-item"
+            type="button"><i class="bi bi-door-closed"></i> Выйти
+          </a>
+        </li>           
+      </ul>
+    </div>              
+  </li>
+{% else %}
+  <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+    <div class="btn-group">
+      <a
+        type="button"
+        href="#"
+        class="btn btn-outline-secondary"
+      >
+        <i class="bi bi-box-arrow-in-right"></i></i> Войти
+      </a>
+    </div>              
+  </li>    
+{% endif %}
