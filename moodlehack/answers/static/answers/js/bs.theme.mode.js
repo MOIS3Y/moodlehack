@@ -1,90 +1,63 @@
-/*!
- * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
- * Copyright 2011-2023 The Bootstrap Authors
- * Licensed under the Creative Commons Attribution 3.0 Unported License.
+/**
+ * Cycle color mode toggler using Bootstrap Icons (bi-*)
+ * Light -> Dark -> Auto
  */
+(() => {
+  'use strict'
 
-;(() => {
-  "use strict"
-
-  const getStoredTheme = () => localStorage.getItem("theme")
-  const setStoredTheme = (theme) => localStorage.setItem("theme", theme)
-
-  const getPreferredTheme = () => {
-    const storedTheme = getStoredTheme()
-    if (storedTheme) {
-      return storedTheme
-    }
-
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light"
+  const THEMES = ['light', 'dark', 'auto']
+  // Map themes to Bootstrap Icon classes
+  const ICONS = {
+    light: 'bi-sun-fill',
+    dark: 'bi-moon-stars-fill',
+    auto: 'bi-circle-half'
   }
 
-  const setTheme = (theme) => {
-    if (
-      theme === "auto" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      document.documentElement.setAttribute("data-bs-theme", "dark")
-    } else {
-      document.documentElement.setAttribute("data-bs-theme", theme)
-    }
+  const getStoredTheme = () => localStorage.getItem('theme')
+  const setStoredTheme = theme => localStorage.setItem('theme', theme)
+  const getPreferredTheme = () => getStoredTheme() || 'auto'
+
+  const setTheme = theme => {
+    const isDark = theme === 'auto' 
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches 
+      : theme === 'dark'
+    document.documentElement.setAttribute('data-bs-theme', isDark ? 'dark' : 'light')
   }
 
-  setTheme(getPreferredTheme())
+  const updateUI = (theme) => {
+    const btn = document.querySelector('#bd-theme')
+    if (!btn) return
 
-  const showActiveTheme = (theme, focus = false) => {
-    const themeSwitcher = document.querySelector("#bd-theme")
-
-    if (!themeSwitcher) {
-      return
+    const iconEl = btn.querySelector('.theme-icon-active')
+    if (iconEl) {
+      // Remove all possible theme classes and add the current one
+      iconEl.classList.remove('bi-sun-fill', 'bi-moon-stars-fill', 'bi-circle-half')
+      iconEl.classList.add(ICONS[theme])
     }
-
-    const themeSwitcherText = document.querySelector("#bd-theme-text")
-    const activeThemeIcon = document.querySelector(".theme-icon-active use")
-    const btnToActive = document.querySelector(
-      `[data-bs-theme-value="${theme}"]`
-    )
-    const svgOfActiveBtn = btnToActive
-      .querySelector("svg use")
-      .getAttribute("href")
-
-    document.querySelectorAll("[data-bs-theme-value]").forEach((element) => {
-      element.classList.remove("active")
-      element.setAttribute("aria-pressed", "false")
-    })
-
-    btnToActive.classList.add("active")
-    btnToActive.setAttribute("aria-pressed", "true")
-    activeThemeIcon.setAttribute("href", svgOfActiveBtn)
-    const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
-    themeSwitcher.setAttribute("aria-label", themeSwitcherLabel)
-
-    if (focus) {
-      themeSwitcher.focus()
-    }
+    btn.setAttribute('aria-label', `Theme: ${theme}`)
   }
 
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-      const storedTheme = getStoredTheme()
-      if (storedTheme !== "light" && storedTheme !== "dark") {
-        setTheme(getPreferredTheme())
-      }
-    })
+  // Initial execution
+  const currentTheme = getPreferredTheme()
+  setTheme(currentTheme)
 
-  window.addEventListener("DOMContentLoaded", () => {
-    showActiveTheme(getPreferredTheme())
+  window.addEventListener('DOMContentLoaded', () => {
+    updateUI(currentTheme)
 
-    document.querySelectorAll("[data-bs-theme-value]").forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const theme = toggle.getAttribute("data-bs-theme-value")
-        setStoredTheme(theme)
-        setTheme(theme)
-        showActiveTheme(theme, true)
-      })
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('#bd-theme')
+      if (!btn) return
+
+      const now = getPreferredTheme()
+      const nextTheme = THEMES[(THEMES.indexOf(now) + 1) % THEMES.length]
+
+      setStoredTheme(nextTheme)
+      setTheme(nextTheme)
+      updateUI(nextTheme)
     })
+  })
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (getPreferredTheme() === 'auto') setTheme('auto')
   })
 })()

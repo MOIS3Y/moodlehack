@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load ui_tags %}
 
 {% block htmx %}
   <!-- HTMX 2.0.4 -->
@@ -14,4 +15,12 @@
   {% include "answers/includes/_navigation.html" %}
 {% endblock navigation %}
 
-  {% block content %}{% endblock content %}
+{% block notifications %}
+  {% render_notifications %}
+{% endblock notifications %}
+
+{% block content %}{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static "answers/js/notifications.js" %}"></script>
+{% endblock extra_js %}

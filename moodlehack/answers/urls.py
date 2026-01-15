@@ -1,20 +1,26 @@
 from django.urls import include, path
-
 from rest_framework import routers
 
 from . import views
 
-
-app_name = 'answers'
-
+app_name = "answers"
 
 router = routers.DefaultRouter()
-router.register(r'categories', views.CategoryViewSet)
-router.register(r'periods', views.PeriodViewSet)
-router.register(r'answers', views.AnswerViewSet)
-
+router.register(r"categories", views.CategoryViewSet)
+router.register(r"periods", views.PeriodViewSet)
+router.register(r"answers", views.AnswerViewSet)
 
 urlpatterns = [
-    path('', views.AnswersListView.as_view(), name='index'),
-    path('api/v1/', include(router.urls))
+    # WEB URLs
+    path("", views.AnswersListView.as_view(), name="index"),
+    path("create/", views.AnswerCreateView.as_view(), name="create"),
+    path("<int:pk>/", views.AnswerDetailView.as_view(), name="detail"),
+    path("<int:pk>/edit/", views.AnswerUpdateView.as_view(), name="edit"),
+    path("<int:pk>/delete/", views.AnswerDeleteView.as_view(), name="delete"),
+    # API URLs
+    path("api/v1/", include(router.urls)),
+    # HTMX URLs
+    path(
+        "check-question/", views.check_question_exists, name="check_question"
+    ),
 ]

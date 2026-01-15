@@ -1,34 +1,139 @@
-<section id="answers">
-  <main class="container">
-    {% if answers %}
-      {% for answer in answers %}
-      <div class="card mt-3">
-        <div class="card-body">
-          <h5 class="card-title d-flex justify-content-between align-items-center">
-            Вопрос № {{ answer.pk }}
-            <span class="badge text-bg-primary rounded-pill">{{ answer.category }}</span>
-          </h5>
-          <p class="card-text">{{ answer.question }}</p>
-        </div>
-        <div class="card-body">
-          <h6 class="card-title">Ответ: </h6>
-          <p class="card-text">{{ answer.answer }}</p>
-          {% if answer.url %}
-            <a href="{{ answer.url }}" class="card-link">Источник</a>
-          {% endif %} 
-        </div>
-        <div class="card-footer d-flex justify-content-between align-items-center">
-          <p class="card-text">{{ answer.period }}</p>
+{% load text_tags %}
+
+{% if answers %}
+  <div id="answers-container"
+      class="row g-4 align-items-start 
+        {% if request.COOKIES.answers_view == 'grid' %}
+          row-cols-1 row-cols-md-2 row-cols-xl-3 grid-mode
+        {% else %}
+          row-cols-1 list-mode
+        {% endif %}">
+    {% for answer in answers %}
+      <div class="col answer-item" id="answer-card-{{ answer.pk }}">
+        <div class="card answer-card shadow-sm h-100">
+
+          <div class="card-header bg-body-tertiary d-flex 
+                      justify-content-between align-items-center py-3">
+            <a href="{% url 'answers:detail' answer.pk %}" 
+              class="fw-bold link-primary text-reset 
+                    link-underline-opacity-0">
+              #{{ answer.pk }}
+            </a>
+            <div class="d-flex gap-2">
+              <span class="badge border text-secondary rounded-pill fw-normal">
+                {{ answer.category.name }}
+              </span>
+              <span class="badge bg-{{ answer.status_color }}">
+                {{ answer.get_status_display }}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body d-flex flex-column pt-3">
+            <div class="question-zone">
+              <h6 class="label-caps mb-1">Вопрос:</h6>
+              <div class="fw-bold text-body-emphasis item-question mb-2">
+                {{ answer.question }}
+              </div>
+            </div>
+
+            <hr class="my-2 opacity-25">
+
+            <div class="answer-zone">
+              <h6 class="label-caps mb-1">Ответ:</h6>
+              <div id="answer-text-{{ answer.pk }}" 
+                  class="answer-content text-body-secondary 
+                        small text-break">
+                {{ answer.answer|markdown }}
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer bg-transparent border-top-0 pt-0 pb-3">
+            <div class="d-flex justify-content-between 
+                        align-items-center mt-2">
+              <div class="small text-body-secondary text-nowrap">
+                <i class="bi bi-calendar3 me-1"></i> 
+                {{ answer.quarter_display }}
+                <span class="opacity-75 ms-1">
+                  ({{ answer.month_display }})
+                </span>
+              </div>
+              
+              <div class="btn-group card-actions">
+                {# 1. Copy #}
+                <button type="button" 
+                        class="btn btn-link btn-sm text-secondary p-1 
+                              copy-btn" 
+                        data-copy-target="answer-text-{{ answer.pk }}"
+                        title="Копировать">
+                  <i class="bi bi-clipboard"></i>
+                </button>
+
+                {# 2. Source URL #}
+                {% if answer.url %}
+                  <a href="{{ answer.url }}" target="_blank" 
+                    class="btn btn-link btn-sm text-primary p-1"
+                    title="Источник">
+                    <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+                {% endif %}
+
+                {# 3. View Detail #}
+                <a href="{% url 'answers:detail' answer.pk %}" 
+                  class="btn btn-link btn-sm text-success p-1"
+                  title="Просмотреть">
+                  <i class="bi bi-eye"></i>
+                </a>
+
+                {# 4. Edit #}
+                <a href="{% url 'answers:edit' answer.pk %}" 
+                  class="btn btn-link btn-sm text-warning p-1"
+                  title="Редактировать">
+                  <i class="bi bi-pencil"></i>
+                </a>
+
+                {# 5. Delete (Universal Modal Trigger) #}
+                <button type="button" 
+                  class="btn btn-link btn-sm text-danger p-1"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#deleteAnswerModal"
+                  data-object-id="{{ answer.pk }}"
+                  {# Use the same URL as standard DeleteView #}
+                  data-delete-url="{% url 'answers:delete' answer.pk %}"
+                  {# Target the specific card ID to avoid htmx:targetError #}
+                  data-hx-target="#answer-card-{{ answer.pk }}"
+                  data-csrf="{{ csrf_token }}"
+                  title="Удалить">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     {% endfor %}
-    {% include 'answers/includes/_pagination.html' %}
-    {% else %}
-      <div class="alert alert-dark alert-dismissible fade show mt-3" role="alert">
-        <strong>Ничего не найдено!</strong>
-        Очистите поле поиска чтобы вернуться назад или обновите страницу
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div class="mt-4">
+    {% include "answers/includes/_pagination.html" %}
+  </div>
+{% else %}
+  <div class="alert alert-secondary mt-3 shadow-sm border-0 p-4">
+    <div class="d-flex align-items-center gap-3">
+      <i class="bi bi-search fs-3 text-primary"></i>
+      <div class="flex-grow-1 text-nowrap">
+        <h6 class="alert-heading fw-bold mb-1 text-body-emphasis">
+          Ничего не найдено
+        </h6>
+        <p class="mb-0 text-body-secondary small text-wrap">
+          Попробуйте изменить запрос или сбросить фильтры.
+        </p>
       </div>
-    {% endif %}
-  </main>
-</section>
+      <a href="{% url 'answers:index' %}" 
+        class="btn btn-sm btn-outline-primary px-3 fw-medium">
+        Сбросить
+      </a>
+    </div>
+  </div>
+{% endif %}
