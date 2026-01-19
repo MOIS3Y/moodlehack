@@ -1,7 +1,9 @@
+from crispy_forms.bootstrap import StrictButton
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Div, Field, Layout, Row, Submit
+from crispy_forms.layout import Column, Div, Field, Layout, Row
 from django import forms
 from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from .models import Answer
@@ -13,6 +15,7 @@ class AnswerForm(forms.ModelForm):
         fields = [
             "question",
             "answer",
+            "note",
             "category",
             "status",
             "month",
@@ -32,23 +35,66 @@ class AnswerForm(forms.ModelForm):
         self.helper.form_class = "needs-validation"
         self.helper.attrs = {"novalidate": ""}
 
-        # Define buttons based on whether the object already exists
+        # Labels with icons
+        icon_save = mark_safe('<i class="bi bi-check-lg me-2"></i>')
+        icon_add = mark_safe('<i class="bi bi-plus-circle me-2"></i>')
+        icon_continue = mark_safe('<i class="bi bi-arrow-repeat me-2"></i>')
+
+        # Define buttons logic
         if not self.instance.pk:
             # Buttons for CreateView
-            submit_buttons = Div(
-                Submit(
-                    "save_and_add",
-                    _("Save and add next"),
-                    css_class="btn btn-primary me-2",
+            submit_buttons = Row(
+                Column(
+                    StrictButton(
+                        icon_add + _("Save and add next"),
+                        name="save_and_add",
+                        type="submit",
+                        css_class="btn btn-success w-100",  # Green
+                    ),
+                    css_class="col-12 col-lg-auto mb-2 mb-lg-0",
                 ),
-                Submit("submit", _("Save"), css_class="btn btn-primary"),
-                css_class="d-flex justify-content-end",
+                Column(
+                    StrictButton(
+                        icon_continue + _("Save and continue editing"),
+                        name="save_and_continue",
+                        type="submit",
+                        css_class="btn btn-warning w-100",  # Yellow
+                    ),
+                    css_class="col-12 col-lg-auto mb-2 mb-lg-0",
+                ),
+                Column(
+                    StrictButton(
+                        icon_save + _("Save"),
+                        name="submit",
+                        type="submit",
+                        css_class="btn btn-primary w-100",  # Blue
+                    ),
+                    css_class="col-12 col-lg-auto",
+                ),
+                css_class="justify-content-lg-end g-lg-2",
             )
         else:
-            # Button for UpdateView
-            submit_buttons = Div(
-                Submit("submit", _("Save"), css_class="btn btn-primary"),
-                css_class="d-flex justify-content-end",
+            # Buttons for UpdateView
+            submit_buttons = Row(
+                Column(
+                    StrictButton(
+                        icon_continue + _("Save and continue editing"),
+                        name="save_and_continue",
+                        type="submit",
+                        css_class="btn btn-warning w-100",  # Yellow
+                    ),
+                    css_class="col-12 col-lg-auto mb-2 mb-lg-0",
+                ),
+                Column(
+                    StrictButton(
+                        icon_save + _("Save changes"),
+                        name="submit",
+                        type="submit",
+                        css_class="btn btn-primary w-100",  # Blue
+                    ),
+                    css_class="col-12 col-lg-auto",
+                ),
+                css_class="justify-content-lg-end g-lg-2",
             )
 
         self.helper.layout = Layout(
@@ -69,6 +115,12 @@ class AnswerForm(forms.ModelForm):
                 "answer",
                 rows="10",
                 placeholder=_("Enter answer..."),
+                css_class="mb-3 form-control",
+            ),
+            Field(
+                "note",
+                rows="3",
+                placeholder=_("Enter optional note..."),
                 css_class="mb-3 form-control",
             ),
             Row(

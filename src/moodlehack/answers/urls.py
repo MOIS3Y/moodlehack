@@ -15,7 +15,7 @@ urlpatterns = [
     path("", views.AnswersListView.as_view(), name="index"),
     path("create/", views.AnswerCreateView.as_view(), name="create"),
     path("<int:pk>/", views.AnswerDetailView.as_view(), name="detail"),
-    path("<int:pk>/edit/", views.AnswerUpdateView.as_view(), name="edit"),
+    path("<int:pk>/update/", views.AnswerUpdateView.as_view(), name="update"),
     path("<int:pk>/delete/", views.AnswerDeleteView.as_view(), name="delete"),
     # API URLs
     path("api/v1/", include(router.urls)),

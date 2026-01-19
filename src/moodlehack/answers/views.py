@@ -180,13 +180,15 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
         if "save_and_add" in self.request.POST:
             return redirect("answers:create")
 
+        if "save_and_continue" in self.request.POST:
+            return redirect("answers:update", pk=self.object.pk)
+
         # Redirect to the detail view of the newly created object by default
         return redirect("answers:detail", pk=self.object.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = _("Add new answer")
-        context["submit_label"] = _("Create")
         return context
 
 
@@ -194,10 +196,19 @@ class AnswerUpdateView(LoginRequiredMixin, UpdateView):
     model = Answer
     form_class = AnswerForm
     template_name = "answers/answer_form.html"
-    success_url = reverse_lazy("answers:index")
+
+    def get_success_url(self):
+        # Default success URL if no special button is pressed
+        return reverse_lazy("answers:detail", kwargs={"pk": self.object.pk})
 
     def form_valid(self, form):
+        self.object = form.save()
         messages.success(self.request, _("Answer successfully updated!"))
+
+        # Check if "Save and continue" was pressed
+        if "save_and_continue" in self.request.POST:
+            return redirect("answers:update", pk=self.object.pk)
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -206,7 +217,6 @@ class AnswerUpdateView(LoginRequiredMixin, UpdateView):
             _("Edit answer #{id}"),
             id=self.object.id
         )
-        context["submit_label"] = _("Save changes")
         context["instance_id"] = self.object.id
         return context
 

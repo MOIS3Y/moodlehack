@@ -38,6 +38,7 @@ class AnswerSerializer(serializers.ModelSerializer):
             "id",
             "question",
             "answer",
+            "note",
             "url",
             "tag",
             "status",

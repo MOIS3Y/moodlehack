@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 11:31+0000\n"
+"POT-Creation-Date: 2026-01-19 12:44+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -57,23 +57,35 @@ msgstr "Источник"
 msgid "Test Answers"
 msgstr "Ответы на тесты"
 
-#: src/moodlehack/answers/forms.py:41
+#: src/moodlehack/answers/forms.py:49
 msgid "Save and add next"
 msgstr "Сохранить и добавить следующий"
 
-#: src/moodlehack/answers/forms.py:44 src/moodlehack/answers/forms.py:50
+#: src/moodlehack/answers/forms.py:58 src/moodlehack/answers/forms.py:81
+msgid "Save and continue editing"
+msgstr "Сохранить и продолжить редактирование"
+
+#: src/moodlehack/answers/forms.py:67
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/moodlehack/answers/forms.py:59
+#: src/moodlehack/answers/forms.py:90
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: src/moodlehack/answers/forms.py:105
 msgid "Enter question..."
 msgstr "Введите вопрос..."
 
-#: src/moodlehack/answers/forms.py:71
+#: src/moodlehack/answers/forms.py:117
 msgid "Enter answer..."
 msgstr "Введите ответ..."
 
-#: src/moodlehack/answers/forms.py:105
+#: src/moodlehack/answers/forms.py:123
+msgid "Enter optional note..."
+msgstr "Введите не обязательную заметку..."
+
+#: src/moodlehack/answers/forms.py:157
 msgid "tag"
 msgstr "тег"
 
@@ -227,11 +239,11 @@ msgstr "Актуален (deprecated)"
 msgid "Answers"
 msgstr "Ответы"
 
-#: src/moodlehack/answers/serializers.py:62
+#: src/moodlehack/answers/serializers.py:63
 msgid "DEPRECATED: Use month and year."
 msgstr "DEPRECATED: Используйте месяц и год."
 
-#: src/moodlehack/answers/serializers.py:65
+#: src/moodlehack/answers/serializers.py:66
 msgid "DEPRECATED: Use status."
 msgstr "DEPRECATED: Используйте статус."
 
@@ -377,7 +389,7 @@ msgstr "Отмена"
 
 #: src/moodlehack/answers/templatetags/ui_tags.py:25
 #: src/moodlehack/answers/templatetags/ui_tags.py:62
-#: src/moodlehack/answers/views.py:217
+#: src/moodlehack/answers/views.py:227
 msgid "Answer successfully deleted!"
 msgstr "Ответ успешно удален!"
 
@@ -394,10 +406,8 @@ msgid "Success"
 msgstr "Успешно"
 
 #: src/moodlehack/answers/templatetags/ui_tags.py:53
-#, fuzzy
-#| msgid "Delete"
 msgid "Deletion"
-msgstr "Удалить"
+msgstr "Удаление"
 
 #: src/moodlehack/answers/templatetags/ui_tags.py:54
 msgid "Warning"
@@ -437,26 +447,21 @@ msgstr "Просмотр ответа #{id}"
 msgid "Answer #{id} successfully created!"
 msgstr "Ответ №{id} успешно создан!"
 
-#: src/moodlehack/answers/views.py:188
+#: src/moodlehack/answers/views.py:191
 msgid "Add new answer"
 msgstr "Добавление нового ответа"
 
-#: src/moodlehack/answers/views.py:189
-msgid "Create"
-msgstr "Создать"
-
-#: src/moodlehack/answers/views.py:200
+#: src/moodlehack/answers/views.py:206
 msgid "Answer successfully updated!"
 msgstr "Ответ успешно обновлен!"
 
-#: src/moodlehack/answers/views.py:206
+#: src/moodlehack/answers/views.py:217
 #, python-brace-format
 msgid "Edit answer #{id}"
 msgstr "Редактирование ответа #{id}"
 
-#: src/moodlehack/answers/views.py:209
-msgid "Save changes"
-msgstr "Сохранить изменения"
+#~ msgid "Create"
+#~ msgstr "Создать"
 
 #~ msgid "This action"
 #~ msgstr "Это действие"
