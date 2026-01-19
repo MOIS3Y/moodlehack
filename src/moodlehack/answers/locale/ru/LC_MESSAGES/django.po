@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 12:44+0000\n"
+"POT-Creation-Date: 2026-01-19 13:43+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -32,12 +32,14 @@ msgid "System Information"
 msgstr "Системная информация"
 
 #: src/moodlehack/answers/admin.py:113 src/moodlehack/answers/models.py:111
+#: src/moodlehack/answers/templates/answers/answer_detail.html:46
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:36
 msgid "Note"
 msgstr "Заметка"
 
 #: src/moodlehack/answers/admin.py:118 src/moodlehack/answers/models.py:102
-#: src/moodlehack/answers/templates/answers/answer_detail.html:29
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:35
+#: src/moodlehack/answers/templates/answers/answer_detail.html:27
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:59
 msgid "Question"
 msgstr "Вопрос"
 
@@ -48,8 +50,8 @@ msgstr "Месяц"
 
 #: src/moodlehack/answers/admin.py:128 src/moodlehack/answers/admin.py:134
 #: src/moodlehack/answers/models.py:120
-#: src/moodlehack/answers/templates/answers/answer_detail.html:67
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:78
+#: src/moodlehack/answers/templates/answers/answer_detail.html:70
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:105
 msgid "Source"
 msgstr "Источник"
 
@@ -91,7 +93,7 @@ msgstr "тег"
 
 #: src/moodlehack/answers/models.py:23 src/moodlehack/answers/models.py:30
 #: src/moodlehack/answers/models.py:171
-#: src/moodlehack/answers/templates/answers/answer_detail.html:53
+#: src/moodlehack/answers/templates/answers/answer_detail.html:56
 #: src/moodlehack/answers/templates/answers/includes/_filters_form.html:11
 msgid "Category"
 msgstr "Категория"
@@ -187,8 +189,8 @@ msgid "Unknown"
 msgstr "Неизвестно"
 
 #: src/moodlehack/answers/models.py:106 src/moodlehack/answers/models.py:252
-#: src/moodlehack/answers/templates/answers/answer_detail.html:42
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:44
+#: src/moodlehack/answers/templates/answers/answer_detail.html:37
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:70
 msgid "Answer"
 msgstr "Ответ"
 
@@ -247,50 +249,54 @@ msgstr "DEPRECATED: Используйте месяц и год."
 msgid "DEPRECATED: Use status."
 msgstr "DEPRECATED: Используйте статус."
 
-#: src/moodlehack/answers/templates/answers/answer_detail.html:58
+#: src/moodlehack/answers/templates/answers/answer_detail.html:61
 msgid "Period and Quarter"
 msgstr "Период и квартал"
 
-#: src/moodlehack/answers/templates/answers/answer_detail.html:71
+#: src/moodlehack/answers/templates/answers/answer_detail.html:72
 msgid "Go to link"
 msgstr "Перейти по ссылке"
 
-#: src/moodlehack/answers/templates/answers/answer_detail.html:93
-msgid "Back"
-msgstr "Назад"
+#: src/moodlehack/answers/templates/answers/answer_detail.html:90
+msgid "To Home"
+msgstr "На Главную"
 
-#: src/moodlehack/answers/templates/answers/answer_detail.html:99
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:93
+#: src/moodlehack/answers/templates/answers/answer_detail.html:93
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:120
 msgid "Edit"
 msgstr "Редактировать"
 
-#: src/moodlehack/answers/templates/answers/answer_detail.html:107
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:108
+#: src/moodlehack/answers/templates/answers/answer_detail.html:96
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:135
 #: src/moodlehack/answers/templatetags/ui_tags.py:23
 msgid "Delete"
 msgstr "Удалить"
 
-#: src/moodlehack/answers/templates/answers/answer_detail.html:115
+#: src/moodlehack/answers/templates/answers/answer_detail.html:104
 msgid "Last update"
 msgstr "Последнее обновление"
 
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:70
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:31
+msgid "View note"
+msgstr "Посмотреть заметку"
+
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:97
 msgid "Copy"
 msgstr "Копировать"
 
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:86
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:113
 msgid "View"
 msgstr "Просмотр"
 
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:128
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:155
 msgid "Nothing found"
 msgstr "Ничего не найдено"
 
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:131
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:158
 msgid "Try changing your query or resetting filters."
 msgstr "Попробуйте изменить запрос или сбросить фильтры."
 
-#: src/moodlehack/answers/templates/answers/includes/_answers.html:136
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:163
 msgid "Reset"
 msgstr "Сбросить"
 
@@ -459,6 +465,14 @@ msgstr "Ответ успешно обновлен!"
 #, python-brace-format
 msgid "Edit answer #{id}"
 msgstr "Редактирование ответа #{id}"
+
+#~ msgid "Back"
+#~ msgstr "Назад"
+
+#, fuzzy
+#~| msgid "Enter optional note..."
+#~ msgid "Internal Note"
+#~ msgstr "Введите не обязательную заметку..."
 
 #~ msgid "Create"
 #~ msgstr "Создать"

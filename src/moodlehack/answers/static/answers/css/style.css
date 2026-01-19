@@ -242,3 +242,37 @@
   overflow: hidden;
   flex: 1 1 auto;
 }
+
+/* --- NOTE INDICATOR ANIMATION --- */
+
+.note-indicator {
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+}
+
+.animate-pulse {
+  animation: notePulse 2s infinite ease-in-out;
+}
+
+@keyframes notePulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.note-indicator:hover {
+  animation: none; 
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  cursor: pointer;
+}

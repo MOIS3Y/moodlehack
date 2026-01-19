@@ -15,11 +15,34 @@
 
           <div class="card-header bg-body-tertiary d-flex 
                       justify-content-between align-items-center py-3">
-            <a href="{% url 'answers:detail' answer.pk %}" 
-              class="fw-bold link-primary text-reset 
-                    link-underline-opacity-0">
-              #{{ answer.pk }}
-            </a>
+            <div class="d-flex align-items-center gap-2">
+              <a href="{% url 'answers:detail' answer.pk %}" 
+                class="fw-bold link-primary text-reset 
+                        link-underline-opacity-0 me-1">
+                #{{ answer.pk }}
+              </a>
+
+              {% if answer.note %}
+                <div class="dropdown d-inline-block">
+                  <button class="btn btn-link p-0 border-0 note-indicator animate-pulse" 
+                          type="button" 
+                          data-bs-toggle="dropdown" 
+                          aria-expanded="false"
+                          title="{% translate 'View note' %}">
+                    <i class="bi bi-sticky-fill text-warning fs-6"></i>
+                  </button>
+                  <div class="dropdown-menu shadow-lg border-0 p-3 note-dropdown-menu" style="min-width: 250px;">
+                    <h6 class="label-caps mb-2 text-warning">
+                      <i class="bi bi-info-circle me-1"></i> {% translate "Note" %}
+                    </h6>
+                    <div class="small text-body-secondary">
+                      {{ answer.note|linebreaks }}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+
             <div class="d-flex gap-2">
               <span class="badge border text-secondary rounded-pill fw-normal">
                 {{ answer.category.name }}
@@ -32,7 +55,9 @@
 
           <div class="card-body d-flex flex-column pt-3">
             <div class="question-zone">
-              <h6 class="label-caps mb-1">{% translate "Question" %}:</h6>
+              <h6 class="label-caps mb-1">
+                <i class="bi bi-question-circle me-1"></i> {% translate "Question" %}:
+              </h6>
               <div class="fw-bold text-body-emphasis item-question mb-2">
                 {{ answer.question }}
               </div>
@@ -41,7 +66,9 @@
             <hr class="my-2 opacity-25">
 
             <div class="answer-zone">
-              <h6 class="label-caps mb-1">{% translate "Answer" %}:</h6>
+              <h6 class="label-caps mb-1">
+                <i class="bi bi-chat-left-text me-1"></i> {% translate "Answer" %}:
+              </h6>
               <div id="answer-text-{{ answer.pk }}" 
                   class="answer-content text-body-secondary 
                         small text-break">
