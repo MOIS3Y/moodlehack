@@ -1,0 +1,261 @@
+# Translations for MoodleHack project - Templates
+# Copyright (C) 2026 MoodleHack contributors
+# This file is distributed under the GNU General Public License v3 or later.
+# Stepan Zhukovsky, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: moodlehack 0.2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-18 14:39+0000\n"
+"PO-Revision-Date: 2026-01-19 00:00+0300\n"
+"Last-Translator: Stepan Zhukovsky\n"
+"Language-Team: MOIS3Y\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: src/moodlehack/answers/admin.py:76
+msgid "Main Information"
+msgstr "Основная информация"
+
+#: src/moodlehack/answers/admin.py:89
+msgid "Additional Information"
+msgstr "Дополнительная информация"
+
+#: src/moodlehack/answers/admin.py:100
+msgid "System Information"
+msgstr "Системная информация"
+
+#: src/moodlehack/answers/admin.py:111 src/moodlehack/answers/models.py:102
+msgid "Question"
+msgstr "Вопрос"
+
+#: src/moodlehack/answers/admin.py:117 src/moodlehack/answers/models.py:124
+msgid "Month"
+msgstr "Месяц"
+
+#: src/moodlehack/answers/admin.py:121 src/moodlehack/answers/admin.py:127
+#: src/moodlehack/answers/models.py:112
+msgid "Source"
+msgstr "Источник"
+
+#: src/moodlehack/answers/apps.py:8
+msgid "Test Answers"
+msgstr "Ответы на тесты"
+
+#: src/moodlehack/answers/forms.py:41
+msgid "Save and add next"
+msgstr "Сохранить и добавить следующий"
+
+#: src/moodlehack/answers/forms.py:44 src/moodlehack/answers/forms.py:50
+msgid "Save"
+msgstr "Сохранить"
+
+#: src/moodlehack/answers/forms.py:59
+msgid "Enter question..."
+msgstr "Введите вопрос..."
+
+#: src/moodlehack/answers/forms.py:71
+msgid "Enter answer..."
+msgstr "Введите ответ..."
+
+#: src/moodlehack/answers/forms.py:105
+msgid "tag"
+msgstr "тег"
+
+#: src/moodlehack/answers/models.py:23 src/moodlehack/answers/models.py:30
+#: src/moodlehack/answers/models.py:163
+msgid "Category"
+msgstr "Категория"
+
+#: src/moodlehack/answers/models.py:31
+msgid "Categories"
+msgstr "Категории"
+
+#: src/moodlehack/answers/models.py:39 src/moodlehack/answers/models.py:51
+#: src/moodlehack/answers/models.py:170
+msgid "Period (deprecated)"
+msgstr "Период (deprecated)"
+
+#: src/moodlehack/answers/models.py:41 src/moodlehack/answers/models.py:172
+#: src/moodlehack/answers/models.py:185
+msgid "Deprecated field. Will be removed in future version."
+msgstr "Устаревшее поле. Будет удалено в будущей версии."
+
+#: src/moodlehack/answers/models.py:48
+msgid "Empty period"
+msgstr "Пустой период"
+
+#: src/moodlehack/answers/models.py:52
+msgid "Periods (deprecated)"
+msgstr "Периоды (deprecated)"
+
+#: src/moodlehack/answers/models.py:65
+msgid "January"
+msgstr "Январь"
+
+#: src/moodlehack/answers/models.py:66
+msgid "February"
+msgstr "Февраль"
+
+#: src/moodlehack/answers/models.py:67
+msgid "March"
+msgstr "Март"
+
+#: src/moodlehack/answers/models.py:68
+msgid "April"
+msgstr "Апрель"
+
+#: src/moodlehack/answers/models.py:69
+msgid "May"
+msgstr "Май"
+
+#: src/moodlehack/answers/models.py:70
+msgid "June"
+msgstr "Июнь"
+
+#: src/moodlehack/answers/models.py:71
+msgid "July"
+msgstr "Июль"
+
+#: src/moodlehack/answers/models.py:72
+msgid "August"
+msgstr "Август"
+
+#: src/moodlehack/answers/models.py:73
+msgid "September"
+msgstr "Сентябрь"
+
+#: src/moodlehack/answers/models.py:74
+msgid "October"
+msgstr "Октябрь"
+
+#: src/moodlehack/answers/models.py:75
+msgid "November"
+msgstr "Ноябрь"
+
+#: src/moodlehack/answers/models.py:76
+msgid "December"
+msgstr "Декабрь"
+
+#: src/moodlehack/answers/models.py:92
+msgid "Actual"
+msgstr "Актуален"
+
+#: src/moodlehack/answers/models.py:93
+msgid "Outdated"
+msgstr "Устарел"
+
+#: src/moodlehack/answers/models.py:94
+msgid "Draft"
+msgstr "Черновик"
+
+#: src/moodlehack/answers/models.py:95
+msgid "Under review"
+msgstr "На проверке"
+
+#: src/moodlehack/answers/models.py:96
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: src/moodlehack/answers/models.py:106 src/moodlehack/answers/models.py:241
+msgid "Answer"
+msgstr "Ответ"
+
+#: src/moodlehack/answers/models.py:119
+msgid "Tag"
+msgstr "Тег"
+
+#: src/moodlehack/answers/models.py:127
+msgid "Answer month (new system)"
+msgstr "Месяц ответа (новая система)"
+
+#: src/moodlehack/answers/models.py:132
+msgid "Year"
+msgstr "Год"
+
+#: src/moodlehack/answers/models.py:136
+#, python-brace-format
+msgid "Year in range {min}-{max} (new system)"
+msgstr "Год в диапазоне {min}-{max} (новая система)"
+
+#: src/moodlehack/answers/models.py:146
+msgid "Status"
+msgstr "Статус"
+
+#: src/moodlehack/answers/models.py:147
+msgid "Answer relevance"
+msgstr "Актуальность ответа"
+
+#: src/moodlehack/answers/models.py:151
+msgid "Created"
+msgstr "Создан"
+
+#: src/moodlehack/answers/models.py:156
+msgid "Updated"
+msgstr "Обновлен"
+
+#: src/moodlehack/answers/models.py:180
+msgid "Actual (deprecated)"
+msgstr "Актуален (deprecated)"
+
+#: src/moodlehack/answers/models.py:242 src/moodlehack/answers/views.py:135
+msgid "Answers"
+msgstr "Ответы"
+
+#: src/moodlehack/answers/serializers.py:62
+msgid "DEPRECATED: Use month and year."
+msgstr "DEPRECATED: Используйте месяц и год."
+
+#: src/moodlehack/answers/serializers.py:65
+msgid "DEPRECATED: Use status."
+msgstr "DEPRECATED: Используйте статус."
+
+#: src/moodlehack/answers/views.py:40
+msgid "Answer with this question already exists."
+msgstr "Ответ с таким вопросом уже существует."
+
+#: src/moodlehack/answers/views.py:48
+msgid "Question is unique."
+msgstr "Вопрос уникален."
+
+#: src/moodlehack/answers/views.py:155
+#, python-brace-format
+msgid "View answer #{id}"
+msgstr "Просмотр ответа #{id}"
+
+#: src/moodlehack/answers/views.py:174
+#, python-brace-format
+msgid "Answer #{id} successfully created!"
+msgstr "Ответ №{id} успешно создан!"
+
+#: src/moodlehack/answers/views.py:188
+msgid "Add new answer"
+msgstr "Добавление нового ответа"
+
+#: src/moodlehack/answers/views.py:189
+msgid "Create"
+msgstr "Создать"
+
+#: src/moodlehack/answers/views.py:200
+msgid "Answer successfully updated!"
+msgstr "Ответ успешно обновлен!"
+
+#: src/moodlehack/answers/views.py:206
+#, python-brace-format
+msgid "Edit answer #{id}"
+msgstr "Редактирование ответа #{id}"
+
+#: src/moodlehack/answers/views.py:209
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: src/moodlehack/answers/views.py:217
+msgid "Answer successfully deleted!"
+msgstr "Ответ успешно удален!"

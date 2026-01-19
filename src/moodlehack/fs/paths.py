@@ -1,4 +1,5 @@
 import os
+import sys
 from functools import cached_property
 from pathlib import Path
 
@@ -93,21 +94,19 @@ class AppPaths:
     def ensure_exists(self, path: Path, mode: int = 0o755) -> Path:
         """
         Ensure directory exists with specified permissions.
-
-        Use for Django-specific directories or custom paths that
-        PlatformDirs doesn't manage.
-
-        Args:
-            path: Directory path to ensure
-            mode: Unix permissions mode (default: 0o755)
-
-        Returns:
-            The same path for chaining
-
-        Raises:
-            PermissionError: If directory cannot be created due to permissions
-            OSError: For other OS-related errors
+        Skipped during management commands that don't require
+        filesystem side effects.
         """
+
+        # Commands that should not trigger directory creation
+        skip_commands = {
+            "makemessages",
+            "compilemessages",
+        }
+
+        if any(cmd in sys.argv for cmd in skip_commands):
+            return path
+
         try:
             path.mkdir(parents=True, exist_ok=True)
             if path.exists():

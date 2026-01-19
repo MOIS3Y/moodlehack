@@ -2,6 +2,6 @@
 
 from .paths import AppPaths
 
-paths = AppPaths(ensure_exists=True)
+paths = AppPaths()
 
 __all__ = ['paths', 'AppPaths']

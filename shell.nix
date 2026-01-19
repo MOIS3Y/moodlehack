@@ -1,12 +1,14 @@
-{ pkgs ? import <nixpkgs> { overlays = [ (import ./nix/overlays.nix) ];} }:
+{ 
+  pkgs ? import ./nix/nixpkgs.nix 
+}:
 
 let
-  moodlehackPackage = pkgs.callPackage ./default.nix { };
+  defaultPackage = pkgs.callPackage ./default.nix { inherit pkgs; };
   python = pkgs.python3;
 in
 
 pkgs.mkShell {
-  inputsFrom = [ moodlehackPackage ];
+  inputsFrom = [ defaultPackage ];
 
   packages = [
     pkgs.uv
@@ -15,8 +17,12 @@ pkgs.mkShell {
 
   shellHook = ''
     echo "==========================================================="
+    echo "Moodlehack Development Environment"
+    echo "Version: ${defaultPackage.version}"
+    echo "==========================================================="
+    
     if [ -f .envrc ]; then
-      echo "✅ Environment: Active"
+      echo "✅ direnv: Active"
     else
       echo "💡 Tip: Use 'direnv' to automate your workflow."
       echo "   Example .envrc:"

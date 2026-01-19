@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from .models import Answer, Category, Period
@@ -58,10 +59,10 @@ class AnswerSerializer(serializers.ModelSerializer):
         # Swagger/OpenAPI deprecation notice
         extra_kwargs = {
             "period": {
-                "help_text": "DEPRECATED: Use month and year.",
+                "help_text": _("DEPRECATED: Use month and year."),
             },
             "actual": {
-                "help_text": "DEPRECATED: Use status.",
+                "help_text": _("DEPRECATED: Use status."),
             },
         }
 

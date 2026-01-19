@@ -15,7 +15,7 @@
         };
       in {
       packages = {
-        moodlehack = pkgs.callPackage ./default.nix { };
+        moodlehack = pkgs.callPackage ./default.nix { inherit self pkgs; };
         default = self.packages.${system}.moodlehack;
       };
       apps = {

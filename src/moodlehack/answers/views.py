@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.utils.text import format_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, DeleteView, UpdateView
@@ -34,16 +36,16 @@ def check_question_exists(request):
     if qs.exists():
         response = HttpResponse(
             '<span id="error_1_id_question" class="invalid-feedback d-block">'
-            "<strong>Ответ с таким вопросом уже существует.</strong>"
-            "</span>"
+            '<strong>{}</strong>'
+            '</span>'.format(_("Answer with this question already exists."))
         )
         response["HX-Trigger"] = '{"fieldInvalid": "question"}'
         return response
 
     response = HttpResponse(
         '<span class="valid-feedback d-block">'
-        "<strong>Вопрос уникален.</strong>"
-        "</span>"
+        '<strong>{}</strong>'
+        '</span>'.format(_("Question is unique."))
     )
     response["HX-Trigger"] = '{"fieldValid": "question"}'
     return response
@@ -130,7 +132,7 @@ class AnswersListView(LoginRequiredMixin, generic.ListView):
         context["month_choices"] = Answer.MONTH_CHOICES
         context["year_choices"] = Answer.YEAR_CHOICES
 
-        context["page_title"] = "Ответы"
+        context["page_title"] = _("Answers")
 
         # Handle pagination for elided page range (e.g., 1 2 ... 10)
         page_obj = context.get("page_obj")
@@ -149,7 +151,10 @@ class AnswerDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = f"Просмотр ответа #{self.object.id}"
+        context["page_title"] = format_lazy(
+            _("View answer #{id}"),
+            id=self.object.id
+        )
         return context
 
 
@@ -164,7 +169,11 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
 
         # Add a success message using Django messages framework
         messages.success(
-            self.request, f"Ответ №{self.object.pk} успешно создан!"
+            self.request,
+            format_lazy(
+                _("Answer #{id} successfully created!"),
+                id=self.object.pk
+            )
         )
 
         # Check which button was pressed in the POST data
@@ -176,8 +185,8 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Добавление нового ответа"
-        context["submit_label"] = "Создать"
+        context["page_title"] = _("Add new answer")
+        context["submit_label"] = _("Create")
         return context
 
 
@@ -188,13 +197,16 @@ class AnswerUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("answers:index")
 
     def form_valid(self, form):
-        messages.success(self.request, "Ответ успешно обновлен!")
+        messages.success(self.request, _("Answer successfully updated!"))
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = f"Редактирование ответа #{self.object.id}"
-        context["submit_label"] = "Сохранить изменения"
+        context["page_title"] = format_lazy(
+            _("Edit answer #{id}"),
+            id=self.object.id
+        )
+        context["submit_label"] = _("Save changes")
         context["instance_id"] = self.object.id
         return context
 
@@ -202,7 +214,7 @@ class AnswerUpdateView(LoginRequiredMixin, UpdateView):
 class AnswerDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Answer
     success_url = reverse_lazy("answers:index")
-    success_message = "Ответ успешно удален!"
+    success_message = _("Answer successfully deleted!")
 
 
 # API Views

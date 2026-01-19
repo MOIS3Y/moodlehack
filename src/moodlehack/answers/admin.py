@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 
 from .models import Answer, Category, Period
 
@@ -72,7 +73,7 @@ class AnswerAdmin(admin.ModelAdmin):
     ]
     fieldsets = (
         (
-            "Основная информация",
+            _("Main Information"),
             {
                 "fields": (
                     "question",
@@ -85,7 +86,7 @@ class AnswerAdmin(admin.ModelAdmin):
             },
         ),
         (
-            "Дополнительная информация",
+            _("Additional Information"),
             {
                 "fields": (
                     "url",
@@ -96,7 +97,7 @@ class AnswerAdmin(admin.ModelAdmin):
             },
         ),
         (
-            "Системная информация",
+            _("System Information"),
             {
                 "fields": (
                     "create",
@@ -107,22 +108,23 @@ class AnswerAdmin(admin.ModelAdmin):
         ),
     )
 
-    @admin.display(description="Вопрос")
+    @admin.display(description=_("Question"))
     def short_question(self, obj):
         if len(obj.question) > 80:
             return f"{obj.question[:80]}..."
         return obj.question
 
-    @admin.display(description="Месяц")
+    @admin.display(description=_("Month"))
     def month_display(self, obj):
         return obj.month_display
 
-    @admin.display(description="Источник")
+    @admin.display(description=_("Source"))
     def source_display(self, obj):
         if obj.url:
             return format_html(
-                '<a href="{}" target="_blank">Источник</a>',
+                '<a href="{}" target="_blank">{}</a>',
                 obj.url,
+                _("Source"),
             )
         return "—"
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -11,7 +12,7 @@
         </div>
         <div class="card shadow-lg">
           <div class="card-body p-5">
-            <h1 class="fs-4 card-title fw-bold mb-4">Войти</h1>
+            <h1 class="fs-4 card-title fw-bold mb-4">{% translate "Login" %}</h1>
 
             <form
               method="POST"
@@ -23,7 +24,7 @@
               {{ form|crispy }}
               <div class="d-flex align-items-center">
                 <button type="submit" class="btn btn-primary ms-auto">
-                  Войти
+                  {% translate "Login" %}
                 </button>
               </div>
             </form>
@@ -31,7 +32,7 @@
           </div>
           <div class="card-footer py-3 border-0">
             <div class="text-center">
-              If you can cheat, then cheat
+              {% translate "If you can cheat, then cheat" %}
             </div>
           </div>
         </div>

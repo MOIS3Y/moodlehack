@@ -2,6 +2,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Div, Field, Layout, Row, Submit
 from django import forms
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 from .models import Answer
 
@@ -37,16 +38,16 @@ class AnswerForm(forms.ModelForm):
             submit_buttons = Div(
                 Submit(
                     "save_and_add",
-                    "Сохранить и добавить следующий",
+                    _("Save and add next"),
                     css_class="btn btn-primary me-2",
                 ),
-                Submit("submit", "Сохранить", css_class="btn btn-primary"),
+                Submit("submit", _("Save"), css_class="btn btn-primary"),
                 css_class="d-flex justify-content-end",
             )
         else:
             # Button for UpdateView
             submit_buttons = Div(
-                Submit("submit", "Сохранить", css_class="btn btn-primary"),
+                Submit("submit", _("Save"), css_class="btn btn-primary"),
                 css_class="d-flex justify-content-end",
             )
 
@@ -55,7 +56,7 @@ class AnswerForm(forms.ModelForm):
                 Field(
                     "question",
                     rows="3",
-                    placeholder="Введите вопрос...",
+                    placeholder=_("Enter question..."),
                     css_class="mb-1",
                     hx_post=reverse_lazy("answers:check_question"),
                     hx_trigger="keyup changed delay:500ms",
@@ -67,7 +68,7 @@ class AnswerForm(forms.ModelForm):
             Field(
                 "answer",
                 rows="10",
-                placeholder="Введите ответ...",
+                placeholder=_("Enter answer..."),
                 css_class="mb-3 form-control",
             ),
             Row(
@@ -99,7 +100,11 @@ class AnswerForm(forms.ModelForm):
                     css_class="col-md-8",
                 ),
                 Column(
-                    Field("tag", placeholder="тег", css_class="form-control"),
+                    Field(
+                        "tag",
+                        placeholder=_("tag"),
+                        css_class="form-control"
+                    ),
                     css_class="col-md-4",
                 ),
                 css_class="g-3 mb-4",
