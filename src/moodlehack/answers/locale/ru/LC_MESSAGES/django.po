@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 10:40+0000\n"
+"POT-Creation-Date: 2026-01-19 11:31+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -19,31 +19,35 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: src/moodlehack/answers/admin.py:76
+#: src/moodlehack/answers/admin.py:77
 msgid "Main Information"
 msgstr "Основная информация"
 
-#: src/moodlehack/answers/admin.py:89
+#: src/moodlehack/answers/admin.py:90
 msgid "Additional Information"
 msgstr "Дополнительная информация"
 
-#: src/moodlehack/answers/admin.py:100
+#: src/moodlehack/answers/admin.py:102
 msgid "System Information"
 msgstr "Системная информация"
 
-#: src/moodlehack/answers/admin.py:111 src/moodlehack/answers/models.py:102
+#: src/moodlehack/answers/admin.py:113 src/moodlehack/answers/models.py:111
+msgid "Note"
+msgstr "Заметка"
+
+#: src/moodlehack/answers/admin.py:118 src/moodlehack/answers/models.py:102
 #: src/moodlehack/answers/templates/answers/answer_detail.html:29
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:35
 msgid "Question"
 msgstr "Вопрос"
 
-#: src/moodlehack/answers/admin.py:117 src/moodlehack/answers/models.py:124
+#: src/moodlehack/answers/admin.py:124 src/moodlehack/answers/models.py:132
 #: src/moodlehack/answers/templates/answers/includes/_filters_form.html:61
 msgid "Month"
 msgstr "Месяц"
 
-#: src/moodlehack/answers/admin.py:121 src/moodlehack/answers/admin.py:127
-#: src/moodlehack/answers/models.py:112
+#: src/moodlehack/answers/admin.py:128 src/moodlehack/answers/admin.py:134
+#: src/moodlehack/answers/models.py:120
 #: src/moodlehack/answers/templates/answers/answer_detail.html:67
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:78
 msgid "Source"
@@ -74,7 +78,7 @@ msgid "tag"
 msgstr "тег"
 
 #: src/moodlehack/answers/models.py:23 src/moodlehack/answers/models.py:30
-#: src/moodlehack/answers/models.py:163
+#: src/moodlehack/answers/models.py:171
 #: src/moodlehack/answers/templates/answers/answer_detail.html:53
 #: src/moodlehack/answers/templates/answers/includes/_filters_form.html:11
 msgid "Category"
@@ -85,12 +89,12 @@ msgid "Categories"
 msgstr "Категории"
 
 #: src/moodlehack/answers/models.py:39 src/moodlehack/answers/models.py:51
-#: src/moodlehack/answers/models.py:170
+#: src/moodlehack/answers/models.py:178
 msgid "Period (deprecated)"
 msgstr "Период (deprecated)"
 
-#: src/moodlehack/answers/models.py:41 src/moodlehack/answers/models.py:172
-#: src/moodlehack/answers/models.py:185
+#: src/moodlehack/answers/models.py:41 src/moodlehack/answers/models.py:180
+#: src/moodlehack/answers/models.py:193
 msgid "Deprecated field. Will be removed in future version."
 msgstr "Устаревшее поле. Будет удалено в будущей версии."
 
@@ -170,52 +174,56 @@ msgstr "На проверке"
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: src/moodlehack/answers/models.py:106 src/moodlehack/answers/models.py:241
+#: src/moodlehack/answers/models.py:106 src/moodlehack/answers/models.py:252
 #: src/moodlehack/answers/templates/answers/answer_detail.html:42
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:44
 msgid "Answer"
 msgstr "Ответ"
 
-#: src/moodlehack/answers/models.py:119
+#: src/moodlehack/answers/models.py:113
+msgid "Optional additional information about this answer."
+msgstr "Необязательная дополнительная информация об этом ответе."
+
+#: src/moodlehack/answers/models.py:127
 msgid "Tag"
 msgstr "Тег"
 
-#: src/moodlehack/answers/models.py:127
+#: src/moodlehack/answers/models.py:135
 msgid "Answer month (new system)"
 msgstr "Месяц ответа (новая система)"
 
-#: src/moodlehack/answers/models.py:132
+#: src/moodlehack/answers/models.py:140
 #: src/moodlehack/answers/templates/answers/includes/_filters_form.html:38
 msgid "Year"
 msgstr "Год"
 
-#: src/moodlehack/answers/models.py:136
+#: src/moodlehack/answers/models.py:144
 #, python-brace-format
 msgid "Year in range {min}-{max} (new system)"
 msgstr "Год в диапазоне {min}-{max} (новая система)"
 
-#: src/moodlehack/answers/models.py:146
+#: src/moodlehack/answers/models.py:154
 #: src/moodlehack/answers/templates/answers/includes/_filters_form.html:23
 msgid "Status"
 msgstr "Статус"
 
-#: src/moodlehack/answers/models.py:147
+#: src/moodlehack/answers/models.py:155
 msgid "Answer relevance"
 msgstr "Актуальность ответа"
 
-#: src/moodlehack/answers/models.py:151
+#: src/moodlehack/answers/models.py:159
 msgid "Created"
 msgstr "Создан"
 
-#: src/moodlehack/answers/models.py:156
+#: src/moodlehack/answers/models.py:164
 msgid "Updated"
 msgstr "Обновлен"
 
-#: src/moodlehack/answers/models.py:180
+#: src/moodlehack/answers/models.py:188
 msgid "Actual (deprecated)"
 msgstr "Актуален (deprecated)"
 
-#: src/moodlehack/answers/models.py:242 src/moodlehack/answers/views.py:135
+#: src/moodlehack/answers/models.py:253 src/moodlehack/answers/views.py:135
 msgid "Answers"
 msgstr "Ответы"
 

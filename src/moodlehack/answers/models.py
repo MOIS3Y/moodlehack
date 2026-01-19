@@ -106,6 +106,14 @@ class Answer(models.Model):
         verbose_name=_("Answer"),
     )
 
+    note = models.TextField(
+        blank=True,
+        verbose_name=_("Note"),
+        help_text=cast(str, _(
+            "Optional additional information about this answer."
+        )),
+    )
+
     url = models.URLField(
         null=True,
         blank=True,
@@ -235,6 +243,9 @@ class Answer(models.Model):
         return color_map.get(self.status, "secondary")
 
     def __str__(self):
+        # Keeps the admin UI clean and avoids button overlap
+        if len(self.question) > 60:
+            return f"{self.question[:60]}..."
         return self.question
 
     class Meta:

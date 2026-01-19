@@ -45,6 +45,7 @@ class AnswerAdmin(admin.ModelAdmin):
         "id",
         "short_question",
         "status",
+        "has_note",
         "category",
         "month_display",
         "year",
@@ -91,6 +92,7 @@ class AnswerAdmin(admin.ModelAdmin):
                 "fields": (
                     "url",
                     "tag",
+                    "note",
                     "status",
                 ),
                 "classes": ("collapse",),
@@ -107,6 +109,11 @@ class AnswerAdmin(admin.ModelAdmin):
             },
         ),
     )
+
+    @admin.display(description=_("Note"), boolean=True)
+    def has_note(self, obj):
+        """Returns True if the note field is not empty."""
+        return bool(obj.note)
 
     @admin.display(description=_("Question"))
     def short_question(self, obj):
