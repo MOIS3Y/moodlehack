@@ -1,6 +1,6 @@
 /**
  * Core notification controller.
- * Uses <template> as a blueprint for both server-side and client-side notifications.
+ * Uses <template> as a blueprint and UI labels from the server for localization.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * 1. Process initial messages from Django context.
-   * Messages are passed via data-initial attribute as a JSON string.
    */
   const rawData = container.dataset.initial;
   if (rawData) {
@@ -23,65 +22,55 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Creates and shows a toast from the <template> element.
- * @param {string} message - Notification text.
- * @param {string} type - Message type (success, danger, warning, etc.).
+ * Creates and shows a toast.
  */
 function showDynamicToast(message, type = 'success') {
   const template = document.getElementById('toast-template');
   const container = document.getElementById('toast-messages-container');
   if (!template || !container) return;
 
-  // Clone the structure from <template>
   const clone = template.content.cloneNode(true);
   const toastEl = clone.querySelector('.toast');
   
-  // Fill text content
   toastEl.querySelector('.toast-body').textContent = message;
   
-  // Update icons and titles based on the tag
-  updateToastUI(toastEl, type);
+  // Get translated labels from container's data-attribute
+  const labels = JSON.parse(container.dataset.labels || '{}');
+  
+  updateToastUI(toastEl, type, labels);
   
   container.appendChild(toastEl);
-  initializeSingleToast(toastEl);
+  initializeSingleToast(toastEl, labels);
 }
 
 /**
- * Common UI updater for icons and titles.
- * Synchronizes Django message tags with JS dynamic calls.
+ * Updates icons and titles using translated labels.
  */
-function updateToastUI(el, type) {
+function updateToastUI(el, type, labels) {
   const icon = el.querySelector('.toast-icon');
   const title = el.querySelector('.toast-title');
   
-  icon.className = 'bi toast-icon me-2'; // Reset
+  icon.className = 'bi toast-icon me-2';
   
   if (type.includes('danger') || type.includes('error')) {
-    // Red theme: for deletions and server errors
     icon.classList.add('bi-trash3-fill', 'text-danger');
-    title.textContent = 'Удаление'; 
+    title.textContent = labels.title_danger || 'Deletion';
   } else if (type.includes('warning')) {
-    // Yellow theme: for warnings
     icon.classList.add('bi-exclamation-triangle-fill', 'text-warning');
-    title.textContent = 'Внимание';
+    title.textContent = labels.title_warning || 'Warning';
   } else if (type.includes('success')) {
-    // Green theme: for creations and updates
     icon.classList.add('bi-check-circle-fill', 'text-success');
-    title.textContent = 'Успешно';
+    title.textContent = labels.title_success || 'Success';
   } else {
-    // Blue theme: for general info
     icon.classList.add('bi-info-circle-fill', 'text-primary');
-    title.textContent = 'Уведомление';
+    title.textContent = labels.title_info || 'Notification';
   }
 }
 
 /**
- * Unified initialization for Bootstrap, Timers, and Cleanup.
- * @param {HTMLElement} element - The toast DOM element.
+ * Handles toast lifecycle: animations, hover, and relative time.
  */
-function initializeSingleToast(element) {
-  if (typeof bootstrap === 'undefined') return;
-
+function initializeSingleToast(element, labels) {
   const timeEl = element.querySelector('.toast-time');
   const startTime = new Date();
   let hideTimeout = null;
@@ -89,9 +78,6 @@ function initializeSingleToast(element) {
 
   const toast = new bootstrap.Toast(element, { autohide: false });
 
-  /**
-   * Triggers the CSS exit animation and then hides the toast.
-   */
   const startHideTimer = () => {
     hideTimeout = setTimeout(() => {
       element.style.animation = 'slideOut 0.5s ease-in forwards';
@@ -99,42 +85,32 @@ function initializeSingleToast(element) {
     }, 5000);
   };
 
-  /**
-   * Helper to calculate relative time (seconds/minutes).
-   */
   const getRelativeTime = (start) => {
     const seconds = Math.floor((new Date() - start) / 1000);
-    if (seconds < 60) return `${seconds} сек. назад`;
-    return `${Math.floor(seconds / 60)} мин. назад`;
+    if (seconds < 60) return `${seconds} ${labels.time_sec || 'sec. ago'}`;
+    return `${Math.floor(seconds / 60)} ${labels.time_min || 'min. ago'}`;
   };
 
-  // Live time counter update every second
   if (timeEl) {
-    timeEl.textContent = 'только что';
+    timeEl.textContent = labels.time_just_now || 'just now';
     interval = setInterval(() => {
       timeEl.textContent = getRelativeTime(startTime);
     }, 1000);
   }
 
-  // Hover logic: Pause the timer and reset animation
   element.onmouseenter = () => {
     clearTimeout(hideTimeout);
     element.style.animation = 'none';
   };
 
-  // Resume on mouse leave
   element.onmouseleave = () => {
     if (element.classList.contains('show')) startHideTimer();
   };
 
-  /**
-   * Cleanup on hide: clear intervals and remove the element from DOM.
-   */
   element.addEventListener('hidden.bs.toast', () => {
-    if (interval) clearInterval(interval);
-    if (hideTimeout) clearTimeout(hideTimeout);
-    element.remove(); 
-  }, { once: true });
+    clearInterval(interval);
+    element.remove();
+  });
 
   toast.show();
   startHideTimer();

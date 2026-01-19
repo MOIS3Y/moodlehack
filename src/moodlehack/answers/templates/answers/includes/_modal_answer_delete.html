@@ -1,10 +1,12 @@
-{% load i18n %}
+<div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-hidden="true"
+    data-msg-success="{{ ui.msg_success }}"
+    data-msg-error-prefix="{{ ui.msg_error_prefix }}"
+    data-msg-network-error="{{ ui.msg_network_error }}">
 
-<div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
       <div class="modal-header border-bottom-0 pt-4 px-4">
-        <h5 class="modal-title fw-bold">{% translate "Delete Confirmation" %}</h5>
+        <h5 class="modal-title fw-bold">{{ ui.title }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       
@@ -13,35 +15,28 @@
           <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 3rem;"></i>
         </div>
         <h4 class="fw-bold mb-2">
-          {% translate "Record #" %}<span id="modal-object-id">{% if object_id %}{{ object_id }}{% else %}---{% endif %}</span>
+          {{ ui.record_label }}<span id="modal-object-id">{% if object_id %}{{ object_id }}{% else %}---{% endif %}</span>
         </h4>
         <p class="text-secondary px-3 mb-0">
-          {% translate "Are you sure you want to delete this answer?" %}
-          <span class="d-block mt-1">{% translate "This action" %} <strong class="text-danger text-uppercase">{% translate "cannot" %}</strong> {% translate "be undone." %}</span>
+          {{ ui.question }}
+          <span class="d-block mt-1 text-danger"><strong>{{ ui.warning_text }}</strong></span>
         </p>
       </div>
 
       <div class="modal-footer border-top-0 justify-content-center pb-4 px-4">
         <button type="button" class="btn btn-light px-4 mx-2" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-2"></i>{% translate "Cancel" %}
+          <i class="bi bi-x-lg me-2"></i>{{ ui.cancel_btn }}
         </button>
 
         {% if mode == "api" %}
-          {# API Mode: Handled by modal-answer-delete-handler.js #}
-          <button type="button" 
-                  id="modal-confirm-action"
-                  class="btn btn-danger px-4 mx-2 d-inline-flex align-items-center">
-            <i class="bi bi-trash3-fill me-2"></i>{% translate "Delete" %}
+          <button type="button" id="modal-confirm-action" class="btn btn-danger px-4 mx-2 d-inline-flex align-items-center">
+            <i class="bi bi-trash3-fill me-2"></i>{{ ui.confirm_btn }}
           </button>
         {% else %}
-          {# Default Mode: Standard Django POST submission #}
-          <form id="modal-delete-form" 
-                method="post" 
-                action="{% if object_id %}{% url 'answers:delete' object_id %}{% endif %}" 
-                class="d-inline">
+          <form id="modal-delete-form" method="post" action="{% if object_id %}{% url 'answers:delete' object_id %}{% endif %}" class="d-inline">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger fw-bold px-4 mx-2 d-inline-flex align-items-center">
-              <i class="bi bi-trash3-fill me-2"></i>{% translate "Confirm" %}
+              <i class="bi bi-trash3-fill me-2"></i>{{ ui.confirm_btn }}
             </button>
           </form>
         {% endif %}

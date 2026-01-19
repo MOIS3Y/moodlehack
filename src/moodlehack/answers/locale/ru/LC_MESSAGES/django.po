@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 06:25+0000\n"
+"POT-Creation-Date: 2026-01-19 10:40+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -246,7 +246,7 @@ msgstr "Редактировать"
 
 #: src/moodlehack/answers/templates/answers/answer_detail.html:107
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:108
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:34
+#: src/moodlehack/answers/templatetags/ui_tags.py:23
 msgid "Delete"
 msgstr "Удалить"
 
@@ -303,38 +303,6 @@ msgstr "Применить"
 msgid "Reset all"
 msgstr "Сбросить все"
 
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:7
-msgid "Delete Confirmation"
-msgstr "Подтверждение удаления"
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:16
-msgid "Record #"
-msgstr "Запись №"
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:19
-msgid "Are you sure you want to delete this answer?"
-msgstr "Вы уверены, что хотите удалить этот ответ?"
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:20
-msgid "This action"
-msgstr "Это действие"
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:20
-msgid "cannot"
-msgstr "нельзя"
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:20
-msgid "be undone."
-msgstr "будет отменить."
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:26
-msgid "Cancel"
-msgstr "Отмена"
-
-#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:44
-msgid "Confirm"
-msgstr "Подтвердить"
-
 #: src/moodlehack/answers/templates/answers/includes/_navigation.html:21
 msgid "Filters"
 msgstr "Фильтры"
@@ -375,13 +343,73 @@ msgstr "Документация API"
 msgid "Logout"
 msgstr "Выйти"
 
-#: src/moodlehack/answers/templates/answers/includes/_toast_messages.html:12
+#: src/moodlehack/answers/templates/answers/includes/_toast_messages.html:15
+msgid "Close"
+msgstr "Закрыть"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:18
+msgid "Delete Confirmation"
+msgstr "Подтверждение удаления"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:19
+msgid "Record #"
+msgstr "Запись №"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:20
+msgid "Are you sure you want to delete this answer?"
+msgstr "Вы уверены, что хотите удалить этот ответ?"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:21
+msgid "This action cannot be undone."
+msgstr "Это действие нельзя будет отменить"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:22
+msgid "Cancel"
+msgstr "Отмена"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:25
+#: src/moodlehack/answers/templatetags/ui_tags.py:62
+#: src/moodlehack/answers/views.py:217
+msgid "Answer successfully deleted!"
+msgstr "Ответ успешно удален!"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:26
+msgid "Server error"
+msgstr "Ошибка сервера"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:27
+msgid "Network error or server unavailable"
+msgstr "Ошибка сети или сервер не доступен"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:52
+msgid "Success"
+msgstr "Успешно"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:53
+#, fuzzy
+#| msgid "Delete"
+msgid "Deletion"
+msgstr "Удалить"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:54
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:55
 msgid "Notification"
 msgstr "Уведомление"
 
-#: src/moodlehack/answers/templates/answers/includes/_toast_messages.html:13
+#: src/moodlehack/answers/templatetags/ui_tags.py:56
 msgid "just now"
 msgstr "только что"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:57
+msgid "sec. ago"
+msgstr "сек. назад"
+
+#: src/moodlehack/answers/templatetags/ui_tags.py:58
+msgid "min. ago"
+msgstr "мин. назад"
 
 #: src/moodlehack/answers/views.py:40
 msgid "Answer with this question already exists."
@@ -422,6 +450,14 @@ msgstr "Редактирование ответа #{id}"
 msgid "Save changes"
 msgstr "Сохранить изменения"
 
-#: src/moodlehack/answers/views.py:217
-msgid "Answer successfully deleted!"
-msgstr "Ответ успешно удален!"
+#~ msgid "This action"
+#~ msgstr "Это действие"
+
+#~ msgid "cannot"
+#~ msgstr "нельзя"
+
+#~ msgid "be undone."
+#~ msgstr "будет отменить."
+
+#~ msgid "Confirm"
+#~ msgstr "Подтвердить"
