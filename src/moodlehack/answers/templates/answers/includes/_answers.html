@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load text_tags %}
 
 {% if answers %}
@@ -31,7 +32,7 @@
 
           <div class="card-body d-flex flex-column pt-3">
             <div class="question-zone">
-              <h6 class="label-caps mb-1">Вопрос:</h6>
+              <h6 class="label-caps mb-1">{% translate "Question" %}:</h6>
               <div class="fw-bold text-body-emphasis item-question mb-2">
                 {{ answer.question }}
               </div>
@@ -40,7 +41,7 @@
             <hr class="my-2 opacity-25">
 
             <div class="answer-zone">
-              <h6 class="label-caps mb-1">Ответ:</h6>
+              <h6 class="label-caps mb-1">{% translate "Answer" %}:</h6>
               <div id="answer-text-{{ answer.pk }}" 
                   class="answer-content text-body-secondary 
                         small text-break">
@@ -66,7 +67,7 @@
                         class="btn btn-link btn-sm text-secondary p-1 
                               copy-btn" 
                         data-copy-target="answer-text-{{ answer.pk }}"
-                        title="Копировать">
+                        title="{% translate 'Copy' %}">
                   <i class="bi bi-clipboard"></i>
                 </button>
 
@@ -74,7 +75,7 @@
                 {% if answer.url %}
                   <a href="{{ answer.url }}" target="_blank" 
                     class="btn btn-link btn-sm text-primary p-1"
-                    title="Источник">
+                    title="{% translate 'Source' %}">
                     <i class="bi bi-box-arrow-up-right"></i>
                   </a>
                 {% endif %}
@@ -82,14 +83,14 @@
                 {# 3. View Detail #}
                 <a href="{% url 'answers:detail' answer.pk %}" 
                   class="btn btn-link btn-sm text-success p-1"
-                  title="Просмотреть">
+                  title="{% translate 'View' %}">
                   <i class="bi bi-eye"></i>
                 </a>
 
                 {# 4. Edit #}
                 <a href="{% url 'answers:edit' answer.pk %}" 
                   class="btn btn-link btn-sm text-warning p-1"
-                  title="Редактировать">
+                  title="{% translate 'Edit' %}">
                   <i class="bi bi-pencil"></i>
                 </a>
 
@@ -104,7 +105,7 @@
                   {# Target the specific card ID to avoid htmx:targetError #}
                   data-hx-target="#answer-card-{{ answer.pk }}"
                   data-csrf="{{ csrf_token }}"
-                  title="Удалить">
+                  title="{% translate 'Delete' %}">
                   <i class="bi bi-trash"></i>
                 </button>
               </div>
@@ -124,15 +125,15 @@
       <i class="bi bi-search fs-3 text-primary"></i>
       <div class="flex-grow-1 text-nowrap">
         <h6 class="alert-heading fw-bold mb-1 text-body-emphasis">
-          Ничего не найдено
+          {% translate "Nothing found" %}
         </h6>
         <p class="mb-0 text-body-secondary small text-wrap">
-          Попробуйте изменить запрос или сбросить фильтры.
+          {% translate "Try changing your query or resetting filters." %}
         </p>
       </div>
       <a href="{% url 'answers:index' %}" 
         class="btn btn-sm btn-outline-primary px-3 fw-medium">
-        Сбросить
+        {% translate "Reset" %}
       </a>
     </div>
   </div>

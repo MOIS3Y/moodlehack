@@ -3,12 +3,11 @@
 # This file is distributed under the GNU General Public License v3 or later.
 # Stepan Zhukovsky, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 14:39+0000\n"
+"POT-Creation-Date: 2026-01-19 06:25+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -33,15 +32,20 @@ msgid "System Information"
 msgstr "Системная информация"
 
 #: src/moodlehack/answers/admin.py:111 src/moodlehack/answers/models.py:102
+#: src/moodlehack/answers/templates/answers/answer_detail.html:29
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:35
 msgid "Question"
 msgstr "Вопрос"
 
 #: src/moodlehack/answers/admin.py:117 src/moodlehack/answers/models.py:124
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:61
 msgid "Month"
 msgstr "Месяц"
 
 #: src/moodlehack/answers/admin.py:121 src/moodlehack/answers/admin.py:127
 #: src/moodlehack/answers/models.py:112
+#: src/moodlehack/answers/templates/answers/answer_detail.html:67
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:78
 msgid "Source"
 msgstr "Источник"
 
@@ -71,6 +75,8 @@ msgstr "тег"
 
 #: src/moodlehack/answers/models.py:23 src/moodlehack/answers/models.py:30
 #: src/moodlehack/answers/models.py:163
+#: src/moodlehack/answers/templates/answers/answer_detail.html:53
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:11
 msgid "Category"
 msgstr "Категория"
 
@@ -165,6 +171,8 @@ msgid "Unknown"
 msgstr "Неизвестно"
 
 #: src/moodlehack/answers/models.py:106 src/moodlehack/answers/models.py:241
+#: src/moodlehack/answers/templates/answers/answer_detail.html:42
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:44
 msgid "Answer"
 msgstr "Ответ"
 
@@ -177,6 +185,7 @@ msgid "Answer month (new system)"
 msgstr "Месяц ответа (новая система)"
 
 #: src/moodlehack/answers/models.py:132
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:38
 msgid "Year"
 msgstr "Год"
 
@@ -186,6 +195,7 @@ msgid "Year in range {min}-{max} (new system)"
 msgstr "Год в диапазоне {min}-{max} (новая система)"
 
 #: src/moodlehack/answers/models.py:146
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:23
 msgid "Status"
 msgstr "Статус"
 
@@ -216,6 +226,162 @@ msgstr "DEPRECATED: Используйте месяц и год."
 #: src/moodlehack/answers/serializers.py:65
 msgid "DEPRECATED: Use status."
 msgstr "DEPRECATED: Используйте статус."
+
+#: src/moodlehack/answers/templates/answers/answer_detail.html:58
+msgid "Period and Quarter"
+msgstr "Период и квартал"
+
+#: src/moodlehack/answers/templates/answers/answer_detail.html:71
+msgid "Go to link"
+msgstr "Перейти по ссылке"
+
+#: src/moodlehack/answers/templates/answers/answer_detail.html:93
+msgid "Back"
+msgstr "Назад"
+
+#: src/moodlehack/answers/templates/answers/answer_detail.html:99
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:93
+msgid "Edit"
+msgstr "Редактировать"
+
+#: src/moodlehack/answers/templates/answers/answer_detail.html:107
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:108
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:34
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/moodlehack/answers/templates/answers/answer_detail.html:115
+msgid "Last update"
+msgstr "Последнее обновление"
+
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:70
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:86
+msgid "View"
+msgstr "Просмотр"
+
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:128
+msgid "Nothing found"
+msgstr "Ничего не найдено"
+
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:131
+msgid "Try changing your query or resetting filters."
+msgstr "Попробуйте изменить запрос или сбросить фильтры."
+
+#: src/moodlehack/answers/templates/answers/includes/_answers.html:136
+msgid "Reset"
+msgstr "Сбросить"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:13
+msgid "All categories"
+msgstr "Все категории"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:25
+msgid "All statuses"
+msgstr "Все статусы"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:40
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:51
+msgid "All"
+msgstr "Все"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:49
+msgid "Quarter"
+msgstr "Квартал"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:63
+msgid "All months"
+msgstr "Все месяцы"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:78
+msgid "Apply"
+msgstr "Применить"
+
+#: src/moodlehack/answers/templates/answers/includes/_filters_form.html:82
+msgid "Reset all"
+msgstr "Сбросить все"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:7
+msgid "Delete Confirmation"
+msgstr "Подтверждение удаления"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:16
+msgid "Record #"
+msgstr "Запись №"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:19
+msgid "Are you sure you want to delete this answer?"
+msgstr "Вы уверены, что хотите удалить этот ответ?"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:20
+msgid "This action"
+msgstr "Это действие"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:20
+msgid "cannot"
+msgstr "нельзя"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:20
+msgid "be undone."
+msgstr "будет отменить."
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:26
+msgid "Cancel"
+msgstr "Отмена"
+
+#: src/moodlehack/answers/templates/answers/includes/_modal_answer_delete.html:44
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:21
+msgid "Filters"
+msgstr "Фильтры"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:28
+msgid "Find answers..."
+msgstr "Найти ответы..."
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:51
+msgid "Create record"
+msgstr "Создать запись"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:54
+msgid "Add answer"
+msgstr "Добавить ответ"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:88
+msgid "Account"
+msgstr "Аккаунт"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:96
+msgid "User"
+msgstr "Пользователь"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:106
+msgid "Tools"
+msgstr "Инструменты"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:110
+msgid "Admin panel"
+msgstr "Панель администратора"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:115
+msgid "API Documentation"
+msgstr "Документация API"
+
+#: src/moodlehack/answers/templates/answers/includes/_navigation.html:124
+msgid "Logout"
+msgstr "Выйти"
+
+#: src/moodlehack/answers/templates/answers/includes/_toast_messages.html:12
+msgid "Notification"
+msgstr "Уведомление"
+
+#: src/moodlehack/answers/templates/answers/includes/_toast_messages.html:13
+msgid "just now"
+msgstr "только что"
 
 #: src/moodlehack/answers/views.py:40
 msgid "Answer with this question already exists."

@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <form method="get" 
       action="{% url 'answers:index' %}" 
       id="filter-form"
@@ -6,9 +8,9 @@
       hx-push-url="true">
   
   <div class="mb-3">
-    <label class="form-label small fw-bold text-uppercase text-secondary">Категория</label>
+    <label class="form-label small fw-bold text-uppercase text-secondary">{% translate "Category" %}</label>
     <select name="category" class="form-select form-select-sm"> 
-      <option value="">Все категории</option>
+      <option value="">{% translate "All categories" %}</option>
       {% for cat in categories %}
         <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"i" %}selected{% endif %}>
           {{ cat.name }}
@@ -18,9 +20,9 @@
   </div>
   
   <div class="mb-3">
-    <label class="form-label small fw-bold text-uppercase text-secondary">Статус</label>
+    <label class="form-label small fw-bold text-uppercase text-secondary">{% translate "Status" %}</label>
     <select name="status" class="form-select form-select-sm">
-      <option value="">Все статусы</option>
+      <option value="">{% translate "All statuses" %}</option>
       {% for status_val, status_name in status_choices %}
         <option value="{{ status_val }}" {% if request.GET.status == status_val %}selected{% endif %}>
           {{ status_name }}
@@ -33,9 +35,9 @@
 
   <div class="row g-2 mb-3">
     <div class="col-6">
-      <label class="form-label small fw-bold text-uppercase text-secondary">Год</label>
+      <label class="form-label small fw-bold text-uppercase text-secondary">{% translate "Year" %}</label>
       <select name="year" class="form-select form-select-sm">
-        <option value="">Все</option>
+        <option value="">{% translate "All" %}</option>
         {% for y_val, y_name in year_choices %}
           <option value="{{ y_val }}" {% if request.GET.year == y_val|stringformat:"i" %}selected{% endif %}>
             {{ y_name }}
@@ -44,9 +46,9 @@
       </select>
     </div>
     <div class="col-6">
-      <label class="form-label small fw-bold text-uppercase text-secondary">Квартал</label>
+      <label class="form-label small fw-bold text-uppercase text-secondary">{% translate "Quarter" %}</label>
       <select name="quarter" class="form-select form-select-sm">
-        <option value="">Все</option>
+        <option value="">{% translate "All" %}</option>
         <option value="1" {% if request.GET.quarter == "1" %}selected{% endif %}>Q1</option>
         <option value="2" {% if request.GET.quarter == "2" %}selected{% endif %}>Q2</option>
         <option value="3" {% if request.GET.quarter == "3" %}selected{% endif %}>Q3</option>
@@ -56,9 +58,9 @@
   </div>
 
   <div class="mb-3">
-    <label class="form-label small fw-bold text-uppercase text-secondary">Месяц</label>
+    <label class="form-label small fw-bold text-uppercase text-secondary">{% translate "Month" %}</label>
     <select name="month" class="form-select form-select-sm">
-      <option value="">Все месяцы</option>
+      <option value="">{% translate "All months" %}</option>
       {% for m_val, m_name in month_choices %}
         <option value="{{ m_val }}" {% if request.GET.month == m_val|stringformat:"i" %}selected{% endif %}>
           {{ m_name }}
@@ -73,11 +75,11 @@
 
   <div class="d-grid gap-2 mt-4">
     <button type="submit" class="btn btn-primary btn-sm fw-bold">
-      <i class="bi bi-check2-circle me-1"></i> Применить
+      <i class="bi bi-check2-circle me-1"></i> {% translate "Apply" %}
     </button>
     
     <a href="{% url 'answers:index' %}" class="btn btn-outline-secondary btn-sm border-0">
-      <i class="bi bi-arrow-counterclockwise me-1"></i> Сбросить всё
+      <i class="bi bi-arrow-counterclockwise me-1"></i> {% translate "Reset all" %}
     </a>
   </div>
 </form>

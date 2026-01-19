@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 05:41+0000\n"
+"POT-Creation-Date: 2026-01-19 06:37+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/moodlehack/serve/apps.py:15
 msgid "Serve"
-msgstr "Serve"
+msgstr ""
 
 #: src/moodlehack/settings/django.py:187
 msgid "English"
@@ -31,17 +31,13 @@ msgstr "Английский"
 msgid "Russian"
 msgstr "Русский"
 
-#: src/moodlehack/templates/404.html:5
+#: src/moodlehack/templates/404.html:5 src/moodlehack/templates/404.html:9
 msgid "Page not found"
 msgstr "Страница не найдена"
 
 #: src/moodlehack/templates/404.html:9
 msgid "Oops!"
 msgstr "Упс!"
-
-#: src/moodlehack/templates/404.html:9
-msgid "Page not found"
-msgstr "Страница не найдена"
 
 #: src/moodlehack/templates/404.html:10
 msgid "The content you are looking for does not exist."
