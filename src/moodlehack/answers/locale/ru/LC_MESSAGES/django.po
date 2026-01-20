@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 13:43+0000\n"
+"POT-Creation-Date: 2026-01-20 13:02+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -19,36 +19,36 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: src/moodlehack/answers/admin.py:77
+#: src/moodlehack/answers/admin.py:78
 msgid "Main Information"
 msgstr "Основная информация"
 
-#: src/moodlehack/answers/admin.py:90
+#: src/moodlehack/answers/admin.py:91
 msgid "Additional Information"
 msgstr "Дополнительная информация"
 
-#: src/moodlehack/answers/admin.py:102
+#: src/moodlehack/answers/admin.py:103
 msgid "System Information"
 msgstr "Системная информация"
 
-#: src/moodlehack/answers/admin.py:113 src/moodlehack/answers/models.py:111
+#: src/moodlehack/answers/admin.py:114 src/moodlehack/answers/models.py:111
 #: src/moodlehack/answers/templates/answers/answer_detail.html:46
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:36
 msgid "Note"
 msgstr "Заметка"
 
-#: src/moodlehack/answers/admin.py:118 src/moodlehack/answers/models.py:102
+#: src/moodlehack/answers/admin.py:119 src/moodlehack/answers/models.py:102
 #: src/moodlehack/answers/templates/answers/answer_detail.html:27
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:59
 msgid "Question"
 msgstr "Вопрос"
 
-#: src/moodlehack/answers/admin.py:124 src/moodlehack/answers/models.py:132
+#: src/moodlehack/answers/admin.py:125 src/moodlehack/answers/models.py:132
 #: src/moodlehack/answers/templates/answers/includes/_filters_form.html:61
 msgid "Month"
 msgstr "Месяц"
 
-#: src/moodlehack/answers/admin.py:128 src/moodlehack/answers/admin.py:134
+#: src/moodlehack/answers/admin.py:129 src/moodlehack/answers/admin.py:135
 #: src/moodlehack/answers/models.py:120
 #: src/moodlehack/answers/templates/answers/answer_detail.html:70
 #: src/moodlehack/answers/templates/answers/includes/_answers.html:105

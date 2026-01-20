@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: moodlehack 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 02:28+0000\n"
+"POT-Creation-Date: 2026-01-20 13:02+0000\n"
 "PO-Revision-Date: 2026-01-19 00:00+0300\n"
 "Last-Translator: Stepan Zhukovsky\n"
 "Language-Team: MOIS3Y\n"
@@ -20,10 +20,9 @@ msgstr ""
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: src/moodlehack/accounts/templates/accounts/login.html:15
-#: src/moodlehack/accounts/templates/accounts/login.html:27
+#: src/moodlehack/accounts/templates/accounts/login.html:30
 msgid "Login"
 msgstr "Войти"
 
-#: src/moodlehack/accounts/templates/accounts/login.html:35
-msgid "If you can cheat, then cheat"
-msgstr "Если можешь сжульничать, то жульничай"
+#~ msgid "If you can cheat, then cheat"
+#~ msgstr "Если можешь сжульничать, то жульничай"

@@ -20,6 +20,9 @@
 {% endblock notifications %}
 
 {% block content %}{% endblock content %}
+{% block footer %}
+  {% include "answers/includes/_footer.html" %}
+{% endblock footer %}
 
 {% block extra_js %}
   <script src="{% static "answers/js/notifications.js" %}"></script>
