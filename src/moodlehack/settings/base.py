@@ -1,3 +1,5 @@
+from typing import Any
+
 from pydantic import Field
 from pydantic_settings import (
     BaseSettings,
@@ -10,6 +12,7 @@ from moodlehack.fs import paths
 
 from .django import DjangoCoreSettings
 from .paths import AppPathSettings
+from .site import SiteSettings
 from .uvicorn import UvicornServerSettings
 
 
@@ -22,16 +25,12 @@ class AppSettings(BaseSettings):
         extra="ignore",
     )
 
-    django: DjangoCoreSettings = Field(
-        default_factory=DjangoCoreSettings
-    )
-    paths: AppPathSettings = Field(
-        default_factory=AppPathSettings
-    )
+    django: DjangoCoreSettings = Field(default_factory=DjangoCoreSettings)
+    paths: AppPathSettings = Field(default_factory=AppPathSettings)
+    site: SiteSettings = Field(default_factory=SiteSettings)
     uvicorn: UvicornServerSettings = Field(
         default_factory=UvicornServerSettings
     )
-
 
     @classmethod
     def settings_customise_sources(
@@ -50,3 +49,20 @@ class AppSettings(BaseSettings):
             toml_settings,
             file_secret_settings,
         )
+
+    def model_post_init(self, __context: Any) -> None:
+        """
+        Override configuration after loading from all sources.
+
+        This method is used to synchronize dependent settings, calculate
+        dynamic defaults, and ensure consistency across different
+        configuration sections.
+        """
+        # Sync Spectacular API title with Site label if not explicitly set
+        if self.django.spectacular.title is None:
+            self.django.spectacular.title = self.site.label
+
+        # Automatically enable Browsable API in DEBUG mode
+        # only if the user hasn't explicitly set 'browsable'
+        if self.django.rest_framework.browsable is None:
+            self.django.rest_framework.browsable = self.django.debug

@@ -1,8 +1,8 @@
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, ClassVar, Literal
 
 from django.utils.translation import gettext_lazy as _
-from pydantic import Field, field_validator
+from pydantic import Field, computed_field, field_validator
 from pydantic_settings import BaseSettings
 
 from moodlehack.fs import paths
@@ -250,13 +250,18 @@ class DjangoCrispySettings(BaseSettings):
 class DjangoRestFrameworkSettings(BaseSettings):
     """
     DRF configuration settings.
-    Renderers are determined by the 'browsable' flag.
+    Renderers and parsers are dynamically determined by the 'browsable' flag.
     """
-    browsable: bool = Field(default=False)
+
+    browsable: bool | None = Field(default=None)
 
     @property
     def as_dict(self) -> dict:
-        # Base renderers/parsers for JSON API
+        """
+        Return DRF settings as a dictionary.
+        Includes Browsable API renderers and parsers if 'browsable' is True.
+        """
+        # Base JSON-only configuration
         renderers = ["rest_framework.renderers.JSONRenderer"]
         parsers = ["rest_framework.parsers.JSONParser"]
 
@@ -278,15 +283,22 @@ class DjangoRestFrameworkSettings(BaseSettings):
             ],
         }
 
+
 # [django.spectacular]
 class DjangoSpectacularSettings(BaseSettings):
-    """DRF Spectacular (OpenAPI) internal configuration"""
+    """DRF Spectacular (OpenAPI) configuration"""
+
+    title: str | None = Field(default=None)
+    description: str | None = Field(
+        default="Internal API for moodle test answer hub"
+    )
+
     @property
     def as_dict(self) -> dict:
         return {
-            "TITLE": "AKVOLABEAN",  # TODO: make it editable
-            "DESCRIPTION": "Internal API for moodle answering service",
-            "VERSION": "0.2.0",  # TODO: make it depends of __version__
+            "TITLE": self.title or paths.appname.upper(),
+            "DESCRIPTION": self.description,
+            "VERSION": paths.version,
             "SERVE_INCLUDE_SCHEMA": True,
             "SERVE_PUBLIC": False,
             "SWAGGER_UI_SETTINGS": {"filter": True},
@@ -296,6 +308,8 @@ class DjangoSpectacularSettings(BaseSettings):
 # [django]
 class DjangoCoreSettings(BaseSettings):
     """Core Django application settings"""
+
+    INSECURE_KEY: ClassVar[str] = "django-insecure-change-me-immediately"
 
     allowed_hosts: list[str] = Field(
         default_factory=lambda: [
@@ -313,7 +327,7 @@ class DjangoCoreSettings(BaseSettings):
     )
 
     debug: bool = Field(default=False)
-    secret_key: str = Field(default="j9QGbvM9Z4otb47-change-me")
+    secret_key: str = Field(default=INSECURE_KEY)
 
     cache: DjangoCacheSettings = Field(
         default_factory=DjangoCacheSettings
@@ -345,6 +359,14 @@ class DjangoCoreSettings(BaseSettings):
     spectacular: DjangoSpectacularSettings = Field(
         default_factory=DjangoSpectacularSettings
     )
+
+    @computed_field
+    @property
+    def is_unsafe(self) -> bool:
+        """
+        True if the current secret_key matches the internal unsafe default.
+        """
+        return self.secret_key == self.INSECURE_KEY
 
     @property
     def auth_password_validators(self) -> list[dict]:

@@ -118,6 +118,16 @@ class Command(TyperCommand):
             debug_value = Text(debug_status, style=debug_style)
             server_info.add_row("Debug", debug_value)
 
+            # Security alert:
+            # Show ONLY if the key is still the default unsafe one
+            if settings.SECRET_KEY_IS_UNSAFE:
+                # Create a composite text with different colors
+                key_warning = Text()
+                key_warning.append("UNSAFE ", style="bold red")
+                key_warning.append("(Default Value)", style="yellow")
+
+                server_info.add_row("Secret Key", key_warning)
+
             # Show verbosity level if > 0
             if verbosity > 0:
                 server_info.add_row("Verbosity", str(verbosity))

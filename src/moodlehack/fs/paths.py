@@ -13,24 +13,27 @@ class AppPaths:
     Automatically detects app name from project directory.
     """
 
-    def __init__(self, appname: str = None, ensure_exists: bool = False):
+    def __init__(
+            self, appname: str | None = None,
+            version: str = "unknown",
+            ensure_exists: bool = False
+    ):
         """
         Initialize AppPaths.
 
         Args:
             appname: Name of the application/package.
+            version: Version of the application/package.
                 If None, automatically detected from project directory name.
             ensure_exists: If True, PlatformDirs will create basic directories
         """
-        self._ensure_exists = ensure_exists
 
-        if appname is None:
-            self.appname = self._detect_appname()
-        else:
-            self.appname = appname
+        self.appname = appname if appname else self._detect_appname()
+        self.version = version
 
         self._dirs = PlatformDirs(
             appname=self.appname,
+            version=self.version,
             ensure_exists=ensure_exists,
             roaming=False,
             multipath=True,
