@@ -1,0 +1,249 @@
+# ============================================================================ #
+#                             Moodlehack Configuration                         #
+# ============================================================================ #
+# This file contains all configurable settings for the Moodle Answers Hub.
+# Settings can also be set via environment variables with prefix MOODLEHACK_
+# ============================================================================ #
+
+# ---------------------------------------------------------------------------- #
+#                                Django Core                                   #
+# ---------------------------------------------------------------------------- #
+
+[django]
+
+# Debug mode - DO NOT enable in production!
+# Controls detailed error pages, automatic reload, etc.
+debug = false
+
+# Secret key for cryptographic signing - MUST be changed in production!
+# Generate with: python -c "import secrets; print(secrets.token_urlsafe(64))"
+secret_key = "django-insecure-change-me-immediately"
+
+# Allowed hosts - add your domain/IP in production
+allowed_hosts = [
+    "localhost",
+    "127.0.0.1",
+    # "your-domain.com",
+    # "your-server-ip",
+]
+
+# Trusted origins for CSRF protection (HTTPS domains)
+csrf_trusted_origins = [
+    # "https://your-domain.com",
+]
+
+# Internal IPs for Django Debug Toolbar (if added)
+internal_ips = [
+    "127.0.0.1",
+]
+
+# ---------------------------------------------------------------------------- #
+#                                Django Database                               #
+# ---------------------------------------------------------------------------- #
+
+[django.database]
+
+# Database engine: sqlite3, postgresql, mysql, oracle
+engine = "sqlite3"
+
+# Database name or path for SQLite
+name = "db.sqlite3"
+
+# PostgreSQL/MySQL credentials (uncomment for production)
+# user = "moodlehack"
+# password = "secure_password"
+# host = "localhost"
+# port = 5432
+
+# Database options (engine-specific)
+# options = { }
+
+# ---------------------------------------------------------------------------- #
+#                                 Django Cache                                 #
+# ---------------------------------------------------------------------------- #
+
+[django.cache]
+
+# Cache backend: locmem (memory), file (disk), dummy (no cache)
+backend = "locmem"
+
+# Cache location (filename for file backend)
+location = "django_cache"
+
+# ---------------------------------------------------------------------------- #
+#                              Internationalization                            #
+# ---------------------------------------------------------------------------- #
+
+[django.i18n]
+
+# Default language: "ru" (Russian) or "en" (English)
+language_code = "ru"
+
+# Time zone for the application (e.g., "UTC", "Europe/Moscow")
+time_zone = "UTC"
+
+# ---------------------------------------------------------------------------- #
+#                              Static & Media Files                            #
+# ---------------------------------------------------------------------------- #
+
+[django.static]
+
+# URL prefix for static files
+url = "/static/"
+
+# Directory where static files will be collected
+# root = "~/.local/share/moodlehack/static"
+
+[django.media]
+
+# URL prefix for uploaded media files
+url = "/media/"
+
+# Directory where media files will be stored
+# root = "~/.local/share/moodlehack/media"
+
+# ---------------------------------------------------------------------------- #
+#                                  Django Email                                #
+# ---------------------------------------------------------------------------- #
+
+[django.email]
+
+# Email backend: console, smtp, file, memory, dummy
+backend = "console"
+
+# SMTP settings (for production)
+host = "localhost"
+port = 25
+# username = "user@example.com"
+# password = "email_password"
+use_tls = false
+use_ssl = false
+
+# ---------------------------------------------------------------------------- #
+#                             Django Data & Forms                              #
+# ---------------------------------------------------------------------------- #
+
+[django.data]
+
+# Maximum number of form fields allowed
+data_upload_max_number_fields = 10000
+
+# ---------------------------------------------------------------------------- #
+#                               DRF & API Docs                                 #
+# ---------------------------------------------------------------------------- #
+
+[django.rest_framework]
+
+# Enable browsable API interface (auto-enabled in debug mode)
+# browsable = true
+
+[django.spectacular]
+
+# OpenAPI/Swagger documentation title
+# title = "Moodle Answers Hub"
+
+# OpenAPI description
+description = "Internal API for moodle test answer hub"
+
+# ---------------------------------------------------------------------------- #
+#                              Application Branding                            #
+# ---------------------------------------------------------------------------- #
+
+[site]
+
+# Application name displayed in UI
+label = "moodlehack"
+
+# Application tagline/slogan
+tagline = "Knowledge Base"
+
+# ---------------------------------------------------------------------------- #
+#                            Uvicorn Server Settings                           #
+# ---------------------------------------------------------------------------- #
+# Complete Uvicorn configuration reference:
+# https://www.uvicorn.org/settings/
+# ---------------------------------------------------------------------------- #
+
+[uvicorn]
+
+# Server bind address
+host = "127.0.0.1"
+
+# Server port
+port = 8000
+
+[uvicorn.logging]
+# Log level: debug, info, warning, error, critical
+log_level = "info"
+
+# Enable access logs
+access_log = true
+
+[uvicorn.ssl]
+# SSL/TLS configuration (for HTTPS)
+# ssl_keyfile = "/path/to/key.pem"
+# ssl_certfile = "/path/to/cert.pem"
+# ssl_keyfile_password = "password"
+
+[uvicorn.protocol]
+# HTTP protocol: auto, h11, httptools
+# http = "auto"
+
+# WebSocket protocol: auto, wsproto, websockets
+# ws = "auto"
+
+# Maximum WebSocket message size (bytes)
+# ws_max_size = 16777216
+
+# WebSocket ping interval (seconds)
+# ws_ping_interval = 20.0
+
+# WebSocket ping timeout (seconds)
+# ws_ping_timeout = 20.0
+
+# Enable WebSocket per-message deflate compression
+# ws_per_message_deflate = true
+
+[uvicorn.performance]
+# Number of worker processes (None = auto)
+# workers = 4
+
+# Maximum concurrent connections
+# limit_concurrency = 1024
+
+# Maximum requests before worker restart
+# limit_max_requests = 10000
+
+# Connection backlog
+backlog = 2048
+
+# Keep-alive timeout (seconds)
+timeout_keep_alive = 5
+
+# Graceful shutdown timeout
+# timeout_graceful_shutdown = 30
+
+[uvicorn.advanced]
+# Development mode (auto-reload on code changes)
+# reload = false
+
+# Directories to watch for auto-reload
+# reload_dirs = ["./src"]
+
+# Auto-reload delay (seconds)
+# reload_delay = 0.25
+
+# Enable proxy headers
+proxy_headers = true
+
+# Add Server header to responses
+server_header = true
+
+# Add Date header to responses
+date_header = true
+
+# Trusted proxy IPs (comma-separated)
+# forwarded_allow_ips = "127.0.0.1"
+
+# Application root path
+# root_path = ""

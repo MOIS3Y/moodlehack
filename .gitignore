@@ -145,3 +145,5 @@ GitHub.sublime-settings
 
 # Configuration files
 settings.toml
+!examples/settings.toml
+!examples/example.env
