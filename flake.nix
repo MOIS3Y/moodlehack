@@ -16,6 +16,7 @@
       in {
       packages = {
         moodlehack = pkgs.callPackage ./default.nix { inherit self pkgs; };
+        dockerImage = pkgs.callPackage ./nix/docker.nix { inherit self pkgs system; };
         default = self.packages.${system}.moodlehack;
       };
       apps = {
