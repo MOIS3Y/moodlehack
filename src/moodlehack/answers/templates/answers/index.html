@@ -1,0 +1,22 @@
+{% extends "answers/base.html" %}
+{% load static %}
+{% load ui_tags %}
+
+{% block title %}{{ block.super }} - {{ page_title }}{% endblock title %}
+
+
+{% block content %}
+<section>
+  <main id="answers" class="container py-4">
+    {% include "answers/includes/_answers.html" %}
+  </main>
+  {% render_confirm_answer_delete modal_id="deleteAnswerModal" mode="api" %}
+</section>
+{% endblock content %}
+
+{% block extra_js %}
+  {{ block.super }}
+  <script src="{% static "answers/js/copy-clipboard-btn.js" %}"></script>
+  <script src="{% static "answers/js/layout-switcher.js" %}"></script>
+  <script src="{% static "answers/js/modal-answer-delete-handler.js" %}"></script>
+{% endblock %}

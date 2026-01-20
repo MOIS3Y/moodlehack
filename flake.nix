@@ -1,28 +1,34 @@
 {
-  description = "App for hacking moodle tests";
+  description = "Moodle Test Answer Hub built with Django.";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-  {
-    packages.${system}.default = pkgs.poetry2nix.mkPoetryApplication {
-      projectDir = self;
-    };
-    devShells.${system}.default = pkgs.mkShellNoCC {
-      shellHook = "echo Welcome to your Nix-powered development environment!";
-      TEST_ENV = "SEE_ME?";
-      packages = with pkgs; [
-        poetry
-        # (poetry2nix.mkPoetryEnv { projectDir = self; })
-      ];
-    };
-  };
+  outputs = { self, nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ (import ./nix/overlays.nix) ];
+        };
+      in {
+      packages = {
+        moodlehack = pkgs.callPackage ./default.nix { inherit self pkgs; };
+        dockerImage = pkgs.callPackage ./nix/docker.nix { inherit self pkgs system; };
+        default = self.packages.${system}.moodlehack;
+      };
+      apps = {
+        moodlehack = {
+          type = "app";
+          program = "${self.packages.${system}.moodlehack}/bin/moodlehack";
+        };
+      };
+      devShells = {
+        moodlehack = pkgs.callPackage ./shell.nix { inherit pkgs; };
+        default = self.devShells.${system}.moodlehack;
+      };
+    }
+  );
 }

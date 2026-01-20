@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load ui_tags %}
+
+{% block htmx %}
+  <!-- HTMX 2.0.4 -->
+  <script
+    src="https://unpkg.com/htmx.org@2.0.4"
+    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+    crossorigin="anonymous">
+  </script>
+{% endblock htmx %}
+
+{% block navigation %}
+  {% include "answers/includes/_navigation.html" %}
+{% endblock navigation %}
+
+{% block notifications %}
+  {% render_notifications %}
+{% endblock notifications %}
+
+{% block content %}{% endblock content %}
+{% block footer %}
+  {% include "answers/includes/_footer.html" %}
+{% endblock footer %}
+
+{% block extra_js %}
+  <script src="{% static "answers/js/notifications.js" %}"></script>
+{% endblock extra_js %}

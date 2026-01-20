@@ -1,0 +1,132 @@
+{% load i18n %}
+
+<header class="sticky-top bg-body-tertiary shadow-sm">
+  <nav class="navbar navbar-expand py-2">
+    <div class="container-fluid d-flex flex-wrap flex-lg-nowrap align-items-center gap-2 px-lg-4">
+
+      {# Label #}
+      <a class="navbar-brand d-flex align-items-center me-0" href="{% url 'answers:index' %}">
+        <span class="d-lg-inline me-2 fw-bold">{{ SITE.LABEL|upper }}</span>
+        <i class="bi bi-binoculars-fill "></i>
+      </a>
+
+      {# Filters & Search #}
+      <div class="flex-grow-1 mx-1 mx-lg-3">
+        <form action="{% url 'answers:index' %}" method="get" class="m-0">
+          <div class="input-group shadow-sm">
+            {% if request.resolver_match.url_name == 'index' %}
+              <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center" 
+                      type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                <i class="bi bi-funnel me-lg-2"></i>
+                <span class="d-none d-lg-inline">{% translate "Filters" %}</span>
+              </button>
+              <div class="dropdown-menu p-3 shadow " style="min-width: 280px;">
+                {% include 'answers/includes/_filters_form.html' %}
+              </div>
+            {% endif %}
+            <input name="q" type="text" class="form-control" 
+                placeholder="{% translate 'Find answers...' %}" value="{{ request.GET.q }}"
+                {% if request.resolver_match.url_name == 'index' %}
+                  hx-push-url="true"
+                  hx-target="#answers"
+                  hx-include="#filter-form"
+                  hx-trigger="input delay:0.4s"
+                  hx-get="{% url 'answers:index' %}"
+                {% endif %}>
+            <button class="btn btn-outline-secondary d-flex align-items-center" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {# Control Buttons #}
+      <div class="d-flex align-items-center justify-content-between gap-1 flex-grow-1 flex-lg-grow-0">
+        {# Create Menu #}
+        <div class="dropdown">
+          <button class="btn d-flex align-items-center px-2  dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-plus-circle "></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end shadow ">
+            <li><h6 class="dropdown-header small text-uppercase text-secondary">{% translate "Create record" %}</h6></li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'answers:create' %}">
+                <i class="bi bi-file-earmark-plus me-2 text-secondary"></i> {% translate "Add answer" %}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {# Grid Display Toggler #}
+        {% if request.resolver_match.url_name == 'index' %}
+        <div class="btn-group shadow-sm">
+          <button type="button" class="btn d-flex align-items-center px-2 " id="list-view-btn">
+            <i class="bi bi-list "></i>
+          </button>
+          <button type="button" class="btn d-flex align-items-center px-2 " id="grid-view-btn">
+            <i class="bi bi-grid-3x3-gap "></i>
+          </button>
+        </div>
+        {% endif %}
+
+        {# Theme Toggler #}
+        <div class="bd-mode-toggle">
+          <button class="btn d-flex align-items-center px-2 " id="bd-theme" type="button">
+            <i class="bi bi-circle-half theme-icon-active"></i>
+          </button>
+        </div>
+
+        {# Gears menu #}
+        <div class="dropdown text-end">
+          <button class="btn d-flex align-items-center px-2  dropdown-toggle" 
+                  id="admin-menu-button" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-gear-wide-connected"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow mt-2" style="min-width: 240px;">
+            
+            {# Account #}
+            <li><h6 class="dropdown-header small text-uppercase text-secondary px-3">{% translate "Account" %}</h6></li>
+            <li class="px-3 py-2">
+              <div class="d-flex align-items-center px-3 py-2 rounded-3 border bg-body-secondary bg-opacity-25">
+                <div class="d-flex align-items-center justify-content-center bg-body border rounded-circle me-3" 
+                    style="width: 32px; height: 32px; flex-shrink: 0;">
+                  <i class="bi bi-person text-secondary"></i>
+                </div>
+                <div class="text-truncate">
+                  <div class="text-secondary" style="font-size: 0.7rem; line-height: 1;">{% translate "User" %}</div>
+                  <span class="fw-bold small">{{ request.user.username }}</span>
+                </div>
+              </div>
+            </li>
+
+            <li><hr class="dropdown-divider opacity-50"></li>
+
+            {# Tools #}
+            <li>
+              <h6 class="dropdown-header small text-uppercase text-secondary px-3">{% translate "Tools" %}</h6>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'admin:index' %}">
+                <i class="bi bi-shield-lock me-2 text-secondary"></i> {% translate "Admin panel" %}
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'swagger-ui' %}" target="_blank">
+                <i class="bi bi-code-slash me-2 text-secondary"></i> {% translate "API Documentation" %}
+              </a>
+          </li>
+
+            <li><hr class="dropdown-divider opacity-50"></li>
+
+            {# Exit #}
+            <li>
+              <a href="{% url 'accounts:logout' %}" class="dropdown-item text-danger py-2">
+                <i class="bi bi-box-arrow-right me-2"></i> {% translate "Logout" %}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,25 +1,32 @@
-[tool.poetry]
+[project]
 name = "moodlehack"
-version = "0.1.0"
-description = "App for hacking moodle tests"
-authors = ["MOIS3Y <stepan@zhukovsky.me>"]
-license = "GPLv3"
+version = "0.2.1rc1"
+description = "Moodle test answers repo with fast search and REST API exchange"
 readme = "README.md"
+authors = [
+    { name = "MOIS3Y", email = "stepan@zhukovsky.me" }
+]
+license = { text = "GPLv3" }
+requires-python = ">=3.10"
+dependencies = [
+    "django>=5.2.9",
+    "djangorestframework>=3.16.0",
+    "drf-spectacular>=0.29.0",
+    "django-filter>=25.1",
+    "django-crispy-forms>=2.5",
+    "django-typer>=3.3.2",
+    "crispy-bootstrap5>=2025.6",
+    "markdown>=3.10",
+    "pydantic-settings>=2.10.1",
+    "platformdirs>=4.5.0",
+    "rich>=14.2.0",
+    "starlette>=0.47.2",
+    "uvicorn>=0.38.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-Django = "^4.2.2"
-django-environ = "^0.10.0"
-djangorestframework = "^3.14.0"
-gunicorn = "^20.1.0"
-drf-spectacular = "^0.27.2"
-django-filter = "^24.3"
-django-crispy-forms = "^2.3"
-crispy-bootstrap5 = "^2024.10"
-
-[tool.poetry.group.dev.dependencies]
-flake8 = "^6.0.0"
+[project.scripts]
+moodlehack = "moodlehack.manage:main"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.9.7,<0.10.0"]
+build-backend = "uv_build"

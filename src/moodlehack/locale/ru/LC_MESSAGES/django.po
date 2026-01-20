@@ -1,0 +1,48 @@
+# Translations for MoodleHack project - Answers module
+# Copyright (C) 2026 MoodleHack contributors
+# This file is distributed under the GNU General Public License v3 or later.
+# Stepan Zhukovsky, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: moodlehack 0.2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-19 06:37+0000\n"
+"PO-Revision-Date: 2026-01-19 00:00+0300\n"
+"Last-Translator: Stepan Zhukovsky\n"
+"Language-Team: MOIS3Y\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: src/moodlehack/serve/apps.py:15
+msgid "Serve"
+msgstr ""
+
+#: src/moodlehack/settings/django.py:187
+msgid "English"
+msgstr "Английский"
+
+#: src/moodlehack/settings/django.py:188
+msgid "Russian"
+msgstr "Русский"
+
+#: src/moodlehack/templates/404.html:5 src/moodlehack/templates/404.html:9
+msgid "Page not found"
+msgstr "Страница не найдена"
+
+#: src/moodlehack/templates/404.html:9
+msgid "Oops!"
+msgstr "Упс!"
+
+#: src/moodlehack/templates/404.html:10
+msgid "The content you are looking for does not exist."
+msgstr "Контент, который вы ищете, не существует."
+
+#: src/moodlehack/templates/errors.html:14
+msgid "To Home"
+msgstr "На Главную"

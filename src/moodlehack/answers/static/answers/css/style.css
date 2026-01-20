@@ -1,0 +1,278 @@
+/* Toast animations */
+.toast.slide-in-out {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.toast.slide-in-out.show {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translate3d(100%, 0, 0); opacity: 0; }
+  to { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { transform: translate3d(0, 0, 0); opacity: 1; }
+  to { transform: translate3d(100%, 0, 0); opacity: 0; }
+}
+
+/* --- CUSTOM ANSWER CARD --- */
+
+.answer-card {
+  z-index: 1;
+  background-color: var(--bs-card-bg) !important;
+  transition: box-shadow 0.3s ease, transform 0.2s ease, 
+              height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.label-caps {
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  font-weight: bold;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+}
+
+/* --- GRID MODE --- */
+
+#answers-container.grid-mode .answer-item {
+  height: 270px;
+  position: relative;
+}
+
+#answers-container.grid-mode .answer-item .answer-card {
+  position: absolute;
+  top: 0;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Adaptive Glow/Shadow:
+  Uses --bs-body-color-rgb which is dark in light mode and light in dark mode.
+*/
+#answers-container.grid-mode .answer-item .answer-card:hover {
+  z-index: 5;
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(var(--bs-body-color-rgb), 0.15) !important;
+  border-color: rgba(var(--bs-body-color-rgb), 0.2) !important;
+}
+
+#answers-container.grid-mode .answer-card.expanded {
+  height: auto !important;
+  min-height: 270px;
+  z-index: 100 !important;
+  overflow: visible !important;
+  transform: none !important;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Background fix for overlap in grid */
+#answers-container.grid-mode .answer-card.expanded .card-body,
+#answers-container.grid-mode .answer-card.expanded .card-footer {
+  background-color: var(--bs-card-bg) !important;
+}
+
+/* Text clipping */
+#answers-container.grid-mode .item-question {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#answers-container.grid-mode .answer-card.expanded .item-question {
+  line-clamp: unset;
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+#answers-container.grid-mode .answer-content {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#answers-container.grid-mode .answer-card.expanded .answer-content {
+  line-clamp: unset;
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+#answers-container.grid-mode .answer-zone {
+  max-height: 85px;
+  overflow: hidden;
+}
+
+#answers-container.grid-mode .answer-card.expanded .answer-zone {
+  max-height: none;
+}
+
+/* --- LIST MODE --- */
+
+#answers-container.list-mode .answer-item .answer-card {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+#answers-container.list-mode .answer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--bs-body-color-rgb), 0.1) !important;
+}
+
+/* --- ACTIONS --- */
+
+.card-actions {
+  position: relative;
+  z-index: 10;
+}
+
+/* Animation for smooth card removal */
+.answer-item.remove-swapping {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* --- EASYMDE ADAPTATION --- */
+
+.EasyMDEContainer .CodeMirror {
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color) !important;
+  background-color: var(--bs-body-bg);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.EasyMDEContainer .cm-s-easymde .CodeMirror-cursor {
+  border-color: var(--bs-body-color);
+}
+
+.CodeMirror-cursor {
+  border-left: 1px solid var(--bs-body-color) !important;
+  border-right: none;
+  width: 0;
+}
+
+.EasyMDEContainer .editor-toolbar > * {
+  border-color: var(--bs-body-bg);
+}
+
+.editor-toolbar {
+  border: 1px solid var(--bs-border-color) !important;
+  border-bottom: none !important;
+  background-color: var(--bs-body-bg);
+}
+
+.editor-toolbar i.separator {
+  border-left: 1px solid var(--bs-border-color) !important;
+  border-right: 1px solid var(--bs-border-color) !important;
+}
+
+.EasyMDEContainer .editor-toolbar > .active, 
+.EasyMDEContainer .editor-toolbar > button:hover, 
+.editor-preview pre, 
+.cm-s-easymde .cm-comment {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+}
+
+.EasyMDEContainer .CodeMirror-fullscreen,
+.editor-toolbar.fullscreen,
+.editor-preview,
+.editor-preview-side {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
+.editor-preview-side {
+  border-color: var(--bs-border-color) !important;
+}
+
+.CodeMirror-selected,
+.CodeMirror-focused .CodeMirror-selected,
+.CodeMirror-line::selection,
+.CodeMirror-line > span::selection,
+.CodeMirror-line > span > span::selection {
+  background: var(--bs-secondary-bg) !important;
+}
+
+/* --- FOCUS & VALIDATION --- */
+
+.CodeMirror-focused {
+  border-color: var(--bs-primary-border-subtle) !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25) !important;
+}
+
+.is-invalid ~ .EasyMDEContainer .CodeMirror,
+.EasyMDEContainer.is-invalid .CodeMirror {
+  border-color: var(--bs-form-invalid-border-color) !important;
+}
+
+.is-invalid ~ .EasyMDEContainer .CodeMirror-focused,
+.EasyMDEContainer.is-invalid .CodeMirror-focused {
+  border-color: var(--bs-form-invalid-border-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25) !important;
+}
+
+/* --- MARKDOWN RENDERING FIXES --- */
+
+/* Removes extra margin from markdown paragraphs to prevent footer pushing */
+.answer-content p:last-child {
+  margin-bottom: 0;
+}
+
+.answer-content ul, .answer-content ol {
+  padding-left: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Fixes grid mode layout issues when text is long */
+#answers-container.grid-mode .answer-card .card-body {
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+/* --- NOTE INDICATOR ANIMATION --- */
+
+.note-indicator {
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+}
+
+.animate-pulse {
+  animation: notePulse 2s infinite ease-in-out;
+}
+
+@keyframes notePulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.note-indicator:hover {
+  animation: none; 
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  cursor: pointer;
+}

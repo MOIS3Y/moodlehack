@@ -1,0 +1,57 @@
+{% load navigation_tags %}
+
+{% if page_obj.has_other_pages %}
+  <nav class="d-flex justify-content-center mt-3">
+    <ul class="pagination justify-content-center flex-wrap">
+      
+      {# Previous Page #}
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" style="cursor: pointer;"
+            hx-target="#answers" 
+            hx-push-url="true"
+            hx-get="{% update_query_params page=page_obj.previous_page_number %}">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% endif %}
+
+      {# Page Numbers #}
+      {% for page in page_range %}
+        {% if page_obj.number == page %}
+          <li class="page-item active">
+            <span class="page-link">{{ page }}</span>
+          </li>
+        {% else %}
+          {% if page == paginator.ELLIPSIS %}
+            <li class="page-item disabled">
+              <span class="page-link">{{ page }}</span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" style="cursor: pointer;"
+                hx-target="#answers" 
+                hx-push-url="true"
+                hx-get="{% update_query_params page=page %}">
+                {{ page }}
+              </a>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {# Next Page #}
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" style="cursor: pointer;"
+            hx-target="#answers" 
+            hx-push-url="true"
+            hx-get="{% update_query_params page=page_obj.next_page_number %}">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      {% endif %}
+
+    </ul>
+  </nav>
+{% endif %}

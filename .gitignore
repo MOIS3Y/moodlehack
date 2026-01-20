@@ -67,6 +67,7 @@ wheels/
 *.egg 
 *.manifest 
 *.spec 
+result
 
 # Installer logs 
 pip-log.txt 
@@ -104,6 +105,8 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+.envrc
+.direnv/
 
 # mkdocs documentation 
 /site 
@@ -135,3 +138,12 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# Translations
+*.mo
+*.pot
+
+# Configuration files
+settings.toml
+!examples/settings.toml
+!examples/example.env
