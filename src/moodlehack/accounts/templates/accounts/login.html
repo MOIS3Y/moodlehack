@@ -8,7 +8,7 @@
     <div class="row justify-content-sm-center h-100">
       <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
         <div class="text-center my-5">
-          <h1>AKVOLABEAN</h1>
+          <h1 class="display-4 fw-bold">{{ SITE.LABEL|upper }}</h1>
         </div>
         <div class="card shadow-lg">
           <div class="card-body p-5">
@@ -19,11 +19,14 @@
               class="needs-validation"
               autocomplete="off"
               action="{% url 'accounts:login' %}"
+              novalidate
             >
               {% csrf_token %}
               {{ form|crispy }}
-              <div class="d-flex align-items-center">
-                <button type="submit" class="btn btn-primary ms-auto">
+
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary py-2 shadow-sm">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>
                   {% translate "Login" %}
                 </button>
               </div>
@@ -32,7 +35,7 @@
           </div>
           <div class="card-footer py-3 border-0">
             <div class="text-center">
-              {% translate "If you can cheat, then cheat" %}
+              {{ SITE.TAGLINE }}
             </div>
           </div>
         </div>

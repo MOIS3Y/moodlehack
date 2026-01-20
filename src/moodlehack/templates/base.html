@@ -44,7 +44,7 @@
     {% block extra_css %}{% endblock extra_css %}
     {% block htmx %}{% endblock htmx %}
 
-    <title>{% block title %}AKVOLABEAN{% endblock title %}</title>
+    <title>{% block title %}{{ SITE.LABEL|upper }}{% endblock title %}</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
 

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -140,5 +141,8 @@ class AnswerAdmin(admin.ModelAdmin):
         return queryset.select_related("category", "period")
 
 
-admin.site.site_title = "Akvolabean"
-admin.site.site_header = "AKVOLABEAN"
+site_label = settings.SITE.get("LABEL", "Django Admin")
+site_tagline = settings.SITE.get("TAGLINE", "Administration")
+
+admin.site.site_title = site_label
+admin.site.site_header = site_label.upper()

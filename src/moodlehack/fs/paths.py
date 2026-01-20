@@ -33,7 +33,7 @@ class AppPaths:
 
         self._dirs = PlatformDirs(
             appname=self.appname,
-            version=self.version,
+            # version=self.version,  #? Excluded: prevents versioned subdirs
             ensure_exists=ensure_exists,
             roaming=False,
             multipath=True,
