@@ -1,0 +1,56 @@
+name: Docker Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v30
+
+      - name: Setup Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+
+      - name: Build Docker Image with Nix
+        run: |
+          nix build .#dockerImage
+          # The result is a symlink to the tarball in the nix store
+          cp result result.tar.gz
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Load image and Push
+        run: |
+          # Load the image into the local docker daemon
+          docker load < result.tar.gz
+          
+          # Get the image name from docker.nix
+          # Since Nix builds it with the tag from pyproject.toml 
+          IMAGE_NAME="mois3y/moodlehack"
+          # Removes 'v' prefix from tag (v0.2.1rc1 -> 0.2.1rc1)
+          TAG="${GITHUB_REF_NAME#v}"
+          
+          docker push $IMAGE_NAME:$TAG
+          
+          # Push as latest if it's a stable release (not rc)
+          if [[ ! "$TAG" == *"rc"* ]]; then
+            docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+            docker push $IMAGE_NAME:latest
+          fi
