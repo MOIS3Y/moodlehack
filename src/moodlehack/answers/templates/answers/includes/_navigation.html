@@ -102,27 +102,33 @@
             <li><hr class="dropdown-divider opacity-50"></li>
 
             {# Tools #}
-            <li>
-              <h6 class="dropdown-header small text-uppercase text-secondary px-3">{% translate "Tools" %}</h6>
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'admin:index' %}">
-                <i class="bi bi-shield-lock me-2 text-secondary"></i> {% translate "Admin panel" %}
-              </a>
-            </li>
+            {% if request.user.is_staff %}
+              <li>
+                <h6 class="dropdown-header small text-uppercase text-secondary px-3">{% translate "Tools" %}</h6>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'admin:index' %}">
+                  <i class="bi bi-shield-lock me-2 text-secondary"></i> {% translate "Admin panel" %}
+                </a>
+              </li>
+            {% endif %}
+
             <li>
               <a class="dropdown-item d-flex align-items-center py-2" href="{% url 'swagger-ui' %}" target="_blank">
                 <i class="bi bi-code-slash me-2 text-secondary"></i> {% translate "API Documentation" %}
               </a>
-          </li>
+            </li>
 
             <li><hr class="dropdown-divider opacity-50"></li>
 
             {# Exit #}
             <li>
-              <a href="{% url 'accounts:logout' %}" class="dropdown-item text-danger py-2">
-                <i class="bi bi-box-arrow-right me-2"></i> {% translate "Logout" %}
-              </a>
+              <form action="{% url 'accounts:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item text-danger py-2">
+                  <i class="bi bi-box-arrow-right me-2"></i> {% translate "Logout" %}
+                </button>
+              </form>
             </li>
           </ul>
         </div>

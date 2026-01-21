@@ -41,6 +41,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "answers/css/style.css" %}">
 
+    <!-- Theme switcher button JS -->
+    <script src="{% static "answers/js/theme-init.js" %}"></script>
+
     {% block extra_css %}{% endblock extra_css %}
     {% block htmx %}{% endblock htmx %}
 
@@ -60,8 +63,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous">
     </script>
-    <!-- Theme switcher JS -->
-    <script src="{% static "answers/js/bs.theme.mode.js" %}"></script>
+    <!-- Theme switcher button JS -->
+    <script src="{% static "answers/js/theme-toggle.js" %}" defer></script>
 
     {% block extra_js %}{% endblock extra_js %}
   </body>
