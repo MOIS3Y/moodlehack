@@ -1,6 +1,6 @@
 [project]
 name = "moodlehack"
-version = "0.2.1rc1"
+version = "0.2.1rc2"
 description = "Moodle test answers repo with fast search and REST API exchange"
 readme = "README.md"
 authors = [
