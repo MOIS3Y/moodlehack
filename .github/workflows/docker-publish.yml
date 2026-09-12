@@ -22,7 +22,7 @@ jobs:
         uses: nixbuild/nix-quick-install-action@v35
 
       - name: Setup Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v14
+        uses: DeterminateSystems/magic-nix-cache-action@v15
 
       - name: Build Docker Image with Nix
         run: |
