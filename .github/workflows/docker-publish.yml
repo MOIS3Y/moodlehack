@@ -36,21 +36,30 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Load image and Push
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image to Docker Hub and GHCR
+        shell: bash
         run: |
-          # Load the image into the local docker daemon
           docker load < result.tar.gz
-          
-          # Get the image name from docker.nix
-          # Since Nix builds it with the tag from pyproject.toml 
-          IMAGE_NAME="mois3y/moodlehack"
-          # Removes 'v' prefix from tag (v0.2.1rc1 -> 0.2.1rc1)
+
+          DOCKERHUB_IMAGE="mois3y/moodlehack"
+          GHCR_IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}"
           TAG="${GITHUB_REF_NAME#v}"
-          
-          docker push $IMAGE_NAME:$TAG
-          
-          # Push as latest if it's a stable release (not rc)
-          if [[ ! "$TAG" == *"rc"* ]]; then
-            docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
-            docker push $IMAGE_NAME:latest
-          fi
+
+          docker tag "$DOCKERHUB_IMAGE:$TAG" "$GHCR_IMAGE:$TAG"
+
+          for IMAGE in "$DOCKERHUB_IMAGE" "$GHCR_IMAGE"; do
+            docker push "$IMAGE:$TAG"
+
+            # Release candidates must not replace latest.
+            if [[ "$TAG" != *rc* ]]; then
+              docker tag "$IMAGE:$TAG" "$IMAGE:latest"
+              docker push "$IMAGE:latest"
+            fi
+          done

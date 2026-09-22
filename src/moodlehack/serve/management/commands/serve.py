@@ -1,4 +1,5 @@
 import typing as t
+from functools import cached_property
 
 from django.conf import settings
 from django.core.management import call_command
@@ -10,15 +11,19 @@ from rich.table import Table
 from rich.text import Text
 from typer import Option
 
+from moodlehack.settings.uvicorn import UvicornServerSettings
 
+
+@t.final
 class Command(TyperCommand):
     """Server management commands for running ASGI server with Uvicorn."""
 
     help = "Run ASGI server using Uvicorn."
 
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.console = Console()
+    @cached_property
+    def console(self) -> Console:
+        """Return the console used by this command instance."""
+        return Console()
 
     @command()
     def runserver(
@@ -58,13 +63,15 @@ class Command(TyperCommand):
         """
         from moodlehack.serve import runserver
 
+        debug = t.cast(bool, settings.DEBUG)
+
         # Pre-startup tasks with spinner
-        if collectstatic and not settings.DEBUG:
+        if collectstatic and not debug:
             try:
                 with Status(
                     "Collecting static files...", console=self.console
                 ):
-                    call_command(
+                    _ = call_command(
                         "collectstatic",
                         interactive=False,
                         clear=True,
@@ -79,10 +86,10 @@ class Command(TyperCommand):
                 )
                 return
 
-        if migrate and not settings.DEBUG:
+        if migrate and not debug:
             try:
                 with Status("Applying migrations...", console=self.console):
-                    call_command(
+                    _ = call_command(
                         "migrate", interactive=False, verbosity=verbosity
                     )
                 self.console.print(
@@ -95,36 +102,40 @@ class Command(TyperCommand):
                 return
 
         # Configuration setup
-        original_config = settings.UVICORN.copy()
+        options = t.cast(dict[str, object], settings.UVICORN)
+        original_config = options.copy()
 
-        if host:
-            settings.UVICORN["host"] = host
-        if port:
-            settings.UVICORN["port"] = port
+        if host is not None:
+            options["host"] = host
+        if port is not None:
+            options["port"] = port
 
         try:
             # Server information display
+            display_config: dict[str, object] = (
+                UvicornServerSettings.model_validate(options).model_dump()
+            )
             server_info = Table(show_header=False, box=None)
             server_info.add_column(style="bold cyan")
             server_info.add_column(style="white")
 
             server_info.add_row("Server", "Uvicorn")
-            server_info.add_row("Host", settings.UVICORN["host"])
-            server_info.add_row("Port", str(settings.UVICORN["port"]))
+            server_info.add_row("Host", str(display_config["host"]))
+            server_info.add_row("Port", str(display_config["port"]))
 
             # Debug status highlighting
-            debug_status = "Enabled" if settings.DEBUG else "Disabled"
-            debug_style = "bold red" if settings.DEBUG else "white"
+            debug_status = "Enabled" if debug else "Disabled"
+            debug_style = "bold red" if debug else "white"
             debug_value = Text(debug_status, style=debug_style)
             server_info.add_row("Debug", debug_value)
 
             # Security alert:
             # Show ONLY if the key is still the default unsafe one
-            if settings.SECRET_KEY_IS_UNSAFE:
+            if t.cast(bool, settings.SECRET_KEY_IS_UNSAFE):
                 # Create a composite text with different colors
                 key_warning = Text()
-                key_warning.append("UNSAFE ", style="bold red")
-                key_warning.append("(Default Value)", style="yellow")
+                _ = key_warning.append("UNSAFE ", style="bold red")
+                _ = key_warning.append("(Default Value)", style="yellow")
 
                 server_info.add_row("Secret Key", key_warning)
 
@@ -145,8 +156,7 @@ class Command(TyperCommand):
 
         finally:
             # Restore original configuration
-            if host or port:
-                settings.UVICORN = original_config
+            settings.UVICORN = original_config
             self.console.print(
                 "[bold yellow]Server shutdown completed.[/bold yellow]"
             )

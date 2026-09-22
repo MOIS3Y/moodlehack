@@ -1,4 +1,4 @@
-from typing import Any
+from typing import ClassVar, override
 
 from pydantic import Field
 from pydantic_settings import (
@@ -17,10 +17,9 @@ from .uvicorn import UvicornServerSettings
 
 
 class AppSettings(BaseSettings):
-
-    model_config = SettingsConfigDict(
+    model_config: ClassVar[SettingsConfigDict] = SettingsConfigDict(
         env_prefix=f"{paths.appname.upper()}_",
-        env_nested_delimiter='__',
+        env_nested_delimiter="__",
         toml_file=paths.settings_file,
         extra="ignore",
     )
@@ -33,6 +32,7 @@ class AppSettings(BaseSettings):
     )
 
     @classmethod
+    @override
     def settings_customise_sources(
         cls,
         settings_cls: type[BaseSettings],
@@ -50,7 +50,8 @@ class AppSettings(BaseSettings):
             file_secret_settings,
         )
 
-    def model_post_init(self, __context: Any) -> None:
+    @override
+    def model_post_init(self, __context: object) -> None:
         """
         Override configuration after loading from all sources.
 
