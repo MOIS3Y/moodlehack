@@ -234,18 +234,6 @@ class DjangoStaticSettings(BaseSettings):
         return []
 
 
-# [django.crispy]
-class DjangoCrispySettings(BaseSettings):
-    """Crispy forms configuration."""
-    @property
-    def template_pack(self) -> str:
-        return "bootstrap5"
-
-    @property
-    def allowed_template_packs(self) -> str:
-        return "bootstrap5"
-
-
 # [django.rest_framework]
 class DjangoRestFrameworkSettings(BaseSettings):
     """
@@ -350,9 +338,6 @@ class DjangoCoreSettings(BaseSettings):
     static: DjangoStaticSettings = Field(
         default_factory=DjangoStaticSettings
     )
-    crispy: DjangoCrispySettings = Field(
-        default_factory=DjangoCrispySettings
-    )
     rest_framework: DjangoRestFrameworkSettings = Field(
         default_factory=DjangoRestFrameworkSettings
     )
@@ -408,8 +393,6 @@ class DjangoCoreSettings(BaseSettings):
             "rest_framework.authtoken",
             "drf_spectacular",
             "django_filters",
-            "crispy_forms",
-            "crispy_bootstrap5",
         ]
 
     @property

@@ -1,6 +1,6 @@
 /**
  * Core notification controller.
- * Uses <template> as a blueprint and UI labels from the server for localization.
+ * Uses a template and translated UI labels supplied by the server.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (rawData) {
     try {
       const messages = JSON.parse(rawData);
-      messages.forEach(m => showDynamicToast(m.text, m.tags));
+      messages.forEach((m) => showDynamicToast(m.text, m.tags));
     } catch (e) {
       console.error('Failed to parse initial messages:', e);
     }
@@ -31,14 +31,14 @@ function showDynamicToast(message, type = 'success') {
 
   const clone = template.content.cloneNode(true);
   const toastEl = clone.querySelector('.toast');
-  
+
   toastEl.querySelector('.toast-body').textContent = message;
-  
+
   // Get translated labels from container's data-attribute
   const labels = JSON.parse(container.dataset.labels || '{}');
-  
+
   updateToastUI(toastEl, type, labels);
-  
+
   container.appendChild(toastEl);
   initializeSingleToast(toastEl, labels);
 }
@@ -49,26 +49,31 @@ function showDynamicToast(message, type = 'success') {
 function updateToastUI(el, type, labels) {
   const icon = el.querySelector('.toast-icon');
   const title = el.querySelector('.toast-title');
-  
-  icon.className = 'bi toast-icon me-2';
-  
+
+  icon.setAttribute('class', 'icon toast-icon me-2');
+  const glyph = icon.querySelector('use');
+
   if (type.includes('danger') || type.includes('error')) {
-    icon.classList.add('bi-trash3-fill', 'text-danger');
+    icon.classList.add('text-danger');
+    glyph.setAttribute('href', '#icon-trash');
     title.textContent = labels.title_danger || 'Deletion';
   } else if (type.includes('warning')) {
-    icon.classList.add('bi-exclamation-triangle-fill', 'text-warning');
+    icon.classList.add('text-warning');
+    glyph.setAttribute('href', '#icon-alert-triangle');
     title.textContent = labels.title_warning || 'Warning';
   } else if (type.includes('success')) {
-    icon.classList.add('bi-check-circle-fill', 'text-success');
+    icon.classList.add('text-success');
+    glyph.setAttribute('href', '#icon-circle-check');
     title.textContent = labels.title_success || 'Success';
   } else {
-    icon.classList.add('bi-info-circle-fill', 'text-primary');
+    icon.classList.add('text-primary');
+    glyph.setAttribute('href', '#icon-info-circle');
     title.textContent = labels.title_info || 'Notification';
   }
 }
 
 /**
- * Handles toast lifecycle: animations, hover, and relative time.
+ * Handles toast lifecycle, hover, and relative time.
  */
 function initializeSingleToast(element, labels) {
   const timeEl = element.querySelector('.toast-time');
@@ -76,12 +81,11 @@ function initializeSingleToast(element, labels) {
   let hideTimeout = null;
   let interval = null;
 
-  const toast = new bootstrap.Toast(element, { autohide: false });
+  const toast = new tabler.Toast(element, { autohide: false });
 
   const startHideTimer = () => {
     hideTimeout = setTimeout(() => {
-      element.style.animation = 'slideOut 0.5s ease-in forwards';
-      element.addEventListener('animationend', () => toast.hide(), { once: true });
+      toast.hide();
     }, 5000);
   };
 
@@ -100,7 +104,6 @@ function initializeSingleToast(element, labels) {
 
   element.onmouseenter = () => {
     clearTimeout(hideTimeout);
-    element.style.animation = 'none';
   };
 
   element.onmouseleave = () => {
@@ -108,7 +111,9 @@ function initializeSingleToast(element, labels) {
   };
 
   element.addEventListener('hidden.bs.toast', () => {
+    clearTimeout(hideTimeout);
     clearInterval(interval);
+    toast.dispose();
     element.remove();
   });
 

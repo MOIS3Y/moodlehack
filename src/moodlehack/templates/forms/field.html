@@ -1,0 +1,23 @@
+{% if field.is_hidden %}
+  {{ field }}
+{% else %}
+  <div class="mb-3">
+    <label for="{{ field.id_for_label }}"
+           id="{{ field.auto_id }}_label"
+           class="form-label{% if field.field.required %} required{% endif %}">
+      {{ field.label }}
+    </label>
+    {{ field }}
+    {% if field.help_text %}
+      <div id="{{ field.auto_id }}_helptext"
+           class="form-hint">{{ field.help_text }}</div>
+    {% endif %}
+    <div id="{{ field.auto_id }}_error"
+         class="validation-container"
+         aria-live="polite">
+      {% for error in field.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let targetCard = null;
 
   if (deleteModalEl && confirmBtn) {
-    const bsModal = new bootstrap.Modal(deleteModalEl);
+    const bsModal = new tabler.Modal(deleteModalEl);
 
     const getCookie = (name) => {
       let cookieValue = null;
@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
           const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          if (cookie.substring(0, name.length + 1) === name + '=') {
+            cookieValue = decodeURIComponent(
+              cookie.substring(name.length + 1),
+            );
             break;
           }
         }
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const trigger = event.relatedTarget;
       targetId = trigger.dataset.objectId;
       targetCard = document.getElementById(`answer-card-${targetId}`);
-      
+
       const idDisplay = deleteModalEl.querySelector('#modal-object-id');
       if (idDisplay) idDisplay.textContent = targetId;
     });
@@ -47,18 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'DELETE',
           headers: {
             'X-CSRFToken': getCookie('csrftoken'),
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         });
 
         bsModal.hide();
 
         if (response.ok) {
           if (targetCard) {
-            targetCard.classList.add('remove-swapping');
-            targetCard.addEventListener('transitionend', () => {
-              targetCard.remove();
-            }, { once: true });
+            disposeTooltips(targetCard);
+            targetCard.remove();
           }
 
           if (typeof showDynamicToast === 'function') {
@@ -66,7 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         } else {
           if (typeof showDynamicToast === 'function') {
-            showDynamicToast(`${msgErrorPrefix}: ${response.status}`, 'warning');
+            showDynamicToast(
+              `${msgErrorPrefix}: ${response.status}`,
+              'warning',
+            );
           }
         }
       } catch (error) {

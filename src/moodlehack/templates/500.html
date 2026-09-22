@@ -1,0 +1,12 @@
+{% extends "errors.html" %}
+{% load i18n %}
+{% block title %}
+  500 — {% translate "Server error" %}
+{% endblock title %}
+{% block status_code %}500{% endblock status_code %}
+{% block error_message %}
+  <p class="empty-title">{% translate "Server error" %}</p>
+  <p class="empty-subtitle text-secondary">
+    {% translate "Please try again later." %}
+  </p>
+{% endblock error_message %}

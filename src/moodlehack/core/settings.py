@@ -74,10 +74,6 @@ REST_FRAMEWORK = cfg.django.rest_framework.as_dict
 SPECTACULAR_SETTINGS = cfg.django.spectacular.as_dict
 
 
-# [django.crispy]
-CRISPY_ALLOWED_TEMPLATE_PACKS = cfg.django.crispy.allowed_template_packs
-CRISPY_TEMPLATE_PACK = cfg.django.crispy.template_pack
-
 # --- Custom Configuration ---
 
 # [paths]

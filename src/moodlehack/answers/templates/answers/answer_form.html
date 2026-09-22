@@ -1,30 +1,86 @@
 {% extends "answers/base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
-
+{% load i18n %}
 {% block title %}{{ block.super }} - {{ page_title }}{% endblock title %}
-
 {% block extra_css %}
   {{ block.super }}
-  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+  {% with editor="https://cdn.jsdelivr.net/npm/easymde@2.21.0/dist" %}
+    <link rel="stylesheet" href="{{ editor }}/easymde.min.css">
+  {% endwith %}
 {% endblock extra_css %}
-
 {% block content %}
-<div class="container mt-4">
+  <template id="editor-icon-template">
+    {% include "includes/icon.html" with name="bold" %}
+  </template>
+  <div class="container-xl py-4">
     <div class="card">
-        <div class="card-header">
-            <h4 class="mb-0">{{ page_title }}</h4>
-        </div>
-        <div class="card-body">
-            {% crispy form %}
-        </div>
+      <div class="card-header">
+        <h4 class="card-title mb-0">{{ page_title }}</h4>
+      </div>
+      <div class="card-body">
+        <form id="answer-form"
+              method="post"
+              novalidate
+              hx-vals='{"instance_id": "
+                {{ form.instance.pk|default_if_none:"" }}"}'>
+          {% csrf_token %}
+          {% include "forms/errors.html" %}
+          {% include "forms/field.html" with field=form.question %}
+          {% include "forms/field.html" with field=form.answer %}
+          {% include "forms/field.html" with field=form.note %}
+          <div class="row">
+            <div class="col-md-3">
+              {% include "forms/field.html" with field=form.category %}
+            </div>
+            <div class="col-md-3">
+              {% include "forms/field.html" with field=form.status %}
+            </div>
+            <div class="col-md-3">
+              {% include "forms/field.html" with field=form.month %}
+            </div>
+            <div class="col-md-3">
+              {% include "forms/field.html" with field=form.year %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              {% include "forms/field.html" with field=form.url %}
+            </div>
+            <div class="col-md-4">
+              {% include "forms/field.html" with field=form.tag %}
+            </div>
+          </div>
+          <div class="d-flex flex-column flex-lg-row gap-2
+            justify-content-lg-end mt-3">
+            {% if not form.instance.pk %}
+              <button type="submit" name="save_and_add" class="btn">
+                {% include "includes/icon.html" with name="circle-plus" extra="me-2" %}
+                {% translate "Save and add next" %}
+              </button>
+            {% endif %}
+            <button type="submit" name="save_and_continue" class="btn">
+              {% include "includes/icon.html" with name="refresh" extra="me-2" %}
+              {% translate "Save and continue editing" %}
+            </button>
+            <button type="submit" name="submit" class="btn btn-primary">
+              {% include "includes/icon.html" with name="check" extra="me-2" %}
+              {% if form.instance.pk %}
+                {% translate "Save changes" %}
+              {% else %}
+                {% translate "Save" %}
+              {% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}
-
 {% block extra_js %}
   {{ block.super }}
-  <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+  {% with editor="https://cdn.jsdelivr.net/npm/easymde@2.21.0/dist" %}
+    <script src="{{ editor }}/easymde.min.js"></script>
+  {% endwith %}
   <script src="{% static "answers/js/easymde-init.js" %}"></script>
   <script src="{% static "answers/js/question-validation.js" %}"></script>
 {% endblock extra_js %}

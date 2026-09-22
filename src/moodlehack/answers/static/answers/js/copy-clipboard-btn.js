@@ -1,25 +1,23 @@
-/**
- * Copies answer text to clipboard.
- */
-document.addEventListener('click', function (event) {
-  const btn = event.target.closest('.copy-btn');
-  if (!btn) return;
+/** Copy the whole rendered answer, not just its visible scroll area. */
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.copy-btn');
+  if (!button || button.disabled) return;
+  const content = document.getElementById(button.dataset.copyTarget);
+  if (!content) return;
 
-  const targetId = btn.getAttribute('data-copy-target');
-  const textElement = document.getElementById(targetId);
-
-  if (textElement) {
-    const textToCopy = textElement.innerText;
-    
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      const icon = btn.querySelector('i');
-      const originalClass = icon.className;
-
-      icon.className = 'bi bi-check2';
-
-      setTimeout(() => {
-        icon.className = originalClass;
-      }, 2000);
-    });
+  const icon = button.querySelector('use');
+  const originalHref = icon.getAttribute('href');
+  button.disabled = true;
+  try {
+    await navigator.clipboard.writeText(content.innerText);
+    icon.setAttribute('href', '#icon-check');
+  } catch {
+    icon.setAttribute('href', '#icon-alert-circle');
+    showDynamicToast(button.dataset.copyError, 'warning');
+  } finally {
+    setTimeout(() => {
+      icon.setAttribute('href', originalHref);
+      button.disabled = false;
+    }, 2000);
   }
 });

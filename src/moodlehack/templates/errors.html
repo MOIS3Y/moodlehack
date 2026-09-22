@@ -1,17 +1,23 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-
-{% block errors_head %}
-  <title>{% block title %}{% endblock title %}</title>
-{% endblock errors_head %}
-
 {% block http_errors %}
-<div class="d-flex align-items-center justify-content-center vh-100" >
-  <div class="text-center">
-      <h1 class="display-1 fw-bold">{% block status_code %}{% endblock status_code %}</h1>
-      {% block error_message %}{% endblock error_message %}
-      <a href="{% url 'answers:index' %}" class="btn btn-secondary">{% translate "To Home" %}</a>
-  </div>
-</div>
+  <main class="page page-center min-vh-100">
+    <div class="container-tight py-4">
+      <div class="empty">
+        <div class="empty-header">
+          {% block status_code %}
+          {% endblock status_code %}
+        </div>
+        {% block error_message %}
+        {% endblock error_message %}
+        <div class="empty-action">
+          <a href="{% url 'answers:index' %}" class="btn btn-primary">
+            {% include "includes/icon.html" with name="home" %}
+            {% translate "To Home" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock http_errors %}

@@ -23,6 +23,18 @@ msgstr ""
 msgid "Main Information"
 msgstr "Основная информация"
 
+msgid "List"
+msgstr "Список"
+
+msgid "Grid"
+msgstr "Сетка"
+
+msgid "Color theme"
+msgstr "Цветовая тема"
+
+msgid "Copy failed"
+msgstr "Не удалось скопировать. Выделите и скопируйте текст вручную."
+
 #: src/moodlehack/answers/admin.py:91
 msgid "Additional Information"
 msgstr "Дополнительная информация"
@@ -402,6 +414,18 @@ msgstr "Ответ успешно удален!"
 #: src/moodlehack/answers/templatetags/ui_tags.py:26
 msgid "Server error"
 msgstr "Ошибка сервера"
+
+#: src/moodlehack/templates/404.html
+msgid "Page not found"
+msgstr "Страница не найдена"
+
+#: src/moodlehack/templates/404.html
+msgid "The content you are looking for does not exist."
+msgstr "Запрашиваемая страница не существует."
+
+#: src/moodlehack/templates/500.html
+msgid "Please try again later."
+msgstr "Пожалуйста, попробуйте позже."
 
 #: src/moodlehack/answers/templatetags/ui_tags.py:27
 msgid "Network error or server unavailable"
